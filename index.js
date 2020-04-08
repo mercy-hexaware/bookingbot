@@ -3,6 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const request = require('request');
+const movies = require('./movie');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,4 +13,36 @@ const server = app.listen(process.env.PORT || 5000, () => {
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);
+	let location;
+	if(req.body.queryResult.intent.displayName === 'movies'){
+		let  x=[], i;
+		location = req.body.queryResult.parameters['geo-city'].toLowerCase();		
+			for (i in movies[location]) {				
+				x.push(					
+					{
+						"title": movies[location][i].name +" Rating "+ movies[location][i].rating+"/5",
+						"image_url": movies[location][i].image,
+						"subtitle": "Actor: "+movies[location][i].actor+"\n Synopsis: "+movies[location][i].synopsis+" \n Director: "+movies[location][i].director+" \n Language: "+movies[location][i].language+" \n Theatre: "+movies[location][i].theatre+" \n Adult: "+movies[location][i].adultprice+" \n Child: "+movies[location][i].childprice,
+						"buttons": [
+							{
+								"type": "postback",
+								"title": "Book",
+								"payload": "booking movie ticket"
+							}
+						]
+					}					
+				);
+			}				
+		return res.json({			
+		  "facebook": {
+			"attachment": {
+			  "type": "template",
+			  "payload": {
+				"template_type": "generic",
+				"elements": x
+			  }
+			}
+		  }			
+		});
+	}
 });

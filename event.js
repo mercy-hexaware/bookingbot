@@ -1,4 +1,4 @@
-{
+const events = {
   "chennai":[
     {
       "event" : 1,
@@ -129,4 +129,5 @@
       
     }
     ]
-}
+};
+module.exports = events;

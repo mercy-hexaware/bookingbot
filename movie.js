@@ -1,4 +1,4 @@
-{
+const movies =  {
   "chennai":[
     {
       "name" :"Gypsy",
@@ -186,4 +186,5 @@
 	   "image": "https://upload.wikimedia.org/wikipedia/en/4/4c/Love_Aaj_Kal_film_poster.jpg"
     }
     ]
-}
+};
+module.exports = movies;
