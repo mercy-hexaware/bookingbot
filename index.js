@@ -59,28 +59,25 @@ app.post('/booking', (req, res) => {
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];	
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){		
-        console.log('booking_time',req.body);
+        console.log('booking_time',req.body.originalDetectIntentRequest.payload['data']);
 		return res.json({
 			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
 			'payload': {		
-				"facebook": {				  
-					"messaging_type": "RESPONSE",
-					"message":{
-						"text": "Shall we go for payment process",
-						"quick_replies":[
-							{
-								"content_type":"text",
-								"title":"Yes",
-								"payload":"payment yes"								
-							},
-							{
-								"content_type":"text",
-								"title":"Home",
-								"payload":"Hi"
-							}
-						]
-					}
+				"facebook": {					
+					"text": "Shall we go for payment process",
+					"quick_replies":[
+						{
+							"content_type":"text",
+							"title":"Yes",
+							"payload":"payment yes"								
+						},
+						{
+							"content_type":"text",
+							"title":"Home",
+							"payload":"Hi"
+						}
+					]					
 				}
 			}
 		});	
