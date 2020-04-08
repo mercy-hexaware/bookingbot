@@ -13,7 +13,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);
-	let location;
+	let location, booking_movie;
 	if(req.body.queryResult.intent.displayName === 'movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();		
@@ -44,7 +44,6 @@ app.post('/booking', (req, res) => {
 					"type": "template",
 					"payload": {
 						"template_type": "generic",
-						"text": "Now playing movies",
 						"elements": x
 						}
 					}
@@ -52,6 +51,7 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
-		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);		
+		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
+        booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'];		
 	}
 });
