@@ -21,9 +21,9 @@ app.post('/booking', (req, res) => {
 			for (i in movies[location]) {				
 				x.push(					
 					{
-						"title": movies[location][i].name +" Rating: "+ movies[location][i].rating +"/5",
+						"title": movies[location][i].name,
 						"image_url": movies[location][i].image,
-						"subtitle": "Actor: "+ movies[location][i].actor +" Synopsis: "+ movies[location][i].synopsis +" Director: "+movies[location][i].director +" Language: "+ movies[location][i].language +" Theatre: "+ movies[location][i].theatre +" Adult: "+ movies[location][i].adultprice +" Child: "+ movies[location][i].childprice,
+						"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Synopsis: "+ movies[location][i].synopsis +"\n Director: "+movies[location][i].director +"\n Language: "+ movies[location][i].language +"\n Theatre: "+ movies[location][i].theatre +"\n Adult: "+ movies[location][i].adultprice +"\n Child: "+ movies[location][i].childprice,
 						"buttons": [
 							{
 								"type": "postback",
