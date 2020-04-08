@@ -27,7 +27,7 @@ app.post('/booking', (req, res) => {
 						"buttons": [
 							{
 								"type": "postback",
-								"title": "Book",
+								"title": movies[location][i].name,
 								"payload": "booking movie ticket"
 							}
 						]
@@ -36,7 +36,7 @@ app.post('/booking', (req, res) => {
 			}
 		console.log('x',x);
 		return res.json({
-			"fulfillmentText": "displayed&spoken response",			
+			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
 			'payload': {		
 				"facebook": {
