@@ -50,5 +50,9 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
+	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
+		console.log('data',req.body.originalDetectIntentRequest.payload['data']);
+		console.log('outputContexts',req.body.queryResult.outputContexts);
+		console.log('fulfillmentMessages',req.body.queryResult.fulfillmentMessages);
 	}
 });
