@@ -8,8 +8,7 @@ const movies =  {
       "director": "Raju Murugan",
       "language":	"Tamil",
       "theatre": "Sathyam Cinemas",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,     
 	   "image":"https://indiaglitz-media.s3.amazonaws.com/tamil/home/gypsy-movie-review-05032020m.jpg"
     },
     {
@@ -20,8 +19,7 @@ const movies =  {
       "director": "Rajdeep",
       "language":	"Tamil",
        "theatre": "Palazzo Cinemas",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,       
 	   "image":"https://static.toiimg.com/photo/msid-74611011/74611011.jpg?68488"
     },
      {
@@ -32,8 +30,7 @@ const movies =  {
       "director": "AR Murugadoss",
       "language":	"Tamil",
        "theatre": "S2 Theyagaraja",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,       
 	   "image":"https://m.media-amazon.com/images/M/MV5BMTVmODRhY2EtZmYyZi00Njk5LWIzNzUtZTllYzU4YzlkNTNhXkEyXkFqcGdeQXVyMjUxMTY3ODM@._V1_.jpg"
     },
     {
@@ -44,8 +41,7 @@ const movies =  {
       "director": "Ashwath Marimuthu",
       "language":	"Tamil",
        "theatre": "Kamala Cinemas",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image":"https://static.toiimg.com/thumb/msid-71633130,imgsize-715735,width-800,height-600,resizemode-75/71633130.jpg"
     },
     {
@@ -56,8 +52,7 @@ const movies =  {
       "director": "R.S.Durai Senthilkumar",
        "language":	"Tamil",
        "theatre": "Escape Cinemas",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image":"https://i.ytimg.com/vi/z3zCeZJh0h4/maxresdefault.jpg"
     }
   ],
@@ -71,8 +66,7 @@ const movies =  {
       "director": "Om Raut",
       "language":	"Hindi",
       "theatre": "Sri Radhakrishna Theatre",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://i.ytimg.com/vi/cffAGIYTEHU/maxresdefault.jpg"
     },
      {
@@ -83,8 +77,7 @@ const movies =  {
       "director": "Ahmed Khan",
        "language":	"Hindi",
       "theatre": "PVR Koramangla",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://bloximages.chicago2.vip.townnews.com/indiawest.com/content/tncms/assets/v3/editorial/1/21/121a3814-67ac-11ea-8dbe-0fbb953b63cb/5e6fb887063ff.image.jpg?resize=480%2C630"
     }, 
     {
@@ -95,8 +88,7 @@ const movies =  {
       "director": "Shiva Tejass",
       "language":	"Kannada",
       "theatre": "Sampige Theatre",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://static.toiimg.com/photo/msid-74592060/74592060.jpg?45808"
     }, 
     {
@@ -107,8 +99,7 @@ const movies =  {
       "director": "Mohit suri",
       "language":	"Hindi",
       "theatre": "Pushpanjali Theatre",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://images.newindianexpress.com/uploads/user/imagelibrary/2020/1/31/w1200X800/Malang.jpg"
     }, 
     {
@@ -119,8 +110,7 @@ const movies =  {
       "director": "Deepak BC",
       "language":	"kannada",
       "theatre": "Ganesh Theatre",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://filmgappa.com/wp-content/uploads/2019/03/IMG-20190305-WA0004-682x1024.jpg"
     }
   ],
@@ -133,8 +123,7 @@ const movies =  {
       "director": "Homi Adajania",
       "language":	"Hindi",
       "theatre": "PVR Cinemas",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://cdn.siasat.com/wp-content/uploads/2020/02/Angrezi-Medium-1.jpg"
     },
     {
@@ -145,8 +134,7 @@ const movies =  {
       "director": "Karteek Anand",
       "language":	"Telugu",
       "theatre": "INOX Maheshwari Parameshwari",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2019/04/06/eureka-Movie-ugadi-wishes-poster-.jpg?fit=2475%2C1392&quality=90&zoom=1&ssl=1"
     },
     {
@@ -157,8 +145,7 @@ const movies =  {
       "director": "Srividya Basawa",
       "language":	"Telugu",
       "theatre": "BVK Multiplex Vijayalakshmi Cinemas",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://m.media-amazon.com/images/M/MV5BYjk0NWY0MDgtNmI2OC00OGEwLTllYjctNmU0YzRhNDM5Mjg3XkEyXkFqcGdeQXVyNzgxMjUzNzk@._V1_.jpg"
     },
     {
@@ -169,8 +156,7 @@ const movies =  {
       "director": "Murali Ramaswamy",
       "language":	"Telugu",
       "theatre": "Asian Shiva Ganga",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://1.bp.blogspot.com/-IsBlH3v8jp8/XmyDtHNk3aI/AAAAAAAAGls/JGP_dPeiSgETmpVNUFzebP_tXmq8DDdaACLcBGAsYHQ/s1600/premapipasi.jpg"
     },
    {
@@ -181,8 +167,7 @@ const movies =  {
       "director": "Imtiaz Ali",
       "language":	"Hindi",
       "theatre": "Prasads Multiplex",
-       "adultprice":160,
-       "childprice":120,
+       "price":160,
 	   "image": "https://upload.wikimedia.org/wikipedia/en/4/4c/Love_Aaj_Kal_film_poster.jpg"
     }
     ]
