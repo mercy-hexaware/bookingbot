@@ -44,6 +44,7 @@ app.post('/booking', (req, res) => {
 					"type": "template",
 					"payload": {
 						"template_type": "generic",
+						"text": "Now playing movies",
 						"elements": x
 						}
 					}
@@ -51,8 +52,6 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
-		console.log('data',req.body.originalDetectIntentRequest.payload['data']);
-		console.log('outputContexts',req.body.queryResult.outputContexts);
-		console.log('fulfillmentMessages',req.body.queryResult.fulfillmentMessages);
+		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);		
 	}
 });
