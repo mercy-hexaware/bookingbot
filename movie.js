@@ -57,7 +57,7 @@ const movies =  {
     }
   ],
   
-  "bangalore":[
+  "bengaluru":[
      {
       "name" :"Tanhaji",
       "rating" : 3.5,
