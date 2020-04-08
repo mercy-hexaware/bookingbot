@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie;
+let location, booking_movie, ticket_count, booking_date;
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);	
@@ -55,7 +55,34 @@ app.post('/booking', (req, res) => {
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'];		
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
 		console.log('ticket_count',req.body.queryResult.parameters['ticket_count']);
+		ticket_count = req.body.queryResult.parameters['ticket_count'];
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
-		console.log('time',req.body.originalDetectIntentRequest.payload['data']);
-	}
+		booking_date = req.body.queryResult.parameters['booking_date'];	
+	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){		
+        console.log('booking_time',req.body);
+		return res.json({
+			"fulfillmentText": "Now playing movies",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {				  
+					"messaging_type": "RESPONSE",
+					"message":{
+						"text": "Shall we go for payment process",
+						"quick_replies":[
+							{
+								"content_type":"text",
+								"title":"Yes",
+								"payload":"payment yes"								
+							},
+							{
+								"content_type":"text",
+								"title":"Home",
+								"payload":"Hi"
+							}
+						]
+					}
+				}
+			}
+		});	
+	}	
 });
