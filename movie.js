@@ -7,7 +7,7 @@ const movies =  {
       "actor": "Jiiva",
       "director": "Raju Murugan",
       "language":	"Tamil",
-      "theatre": "Sathyam Cinemas, Royapettah, Chennai",
+      "theatre": "Sathyam Cinemas",
        "adultprice":160,
        "childprice":120,
 	   "image":"https://indiaglitz-media.s3.amazonaws.com/tamil/home/gypsy-movie-review-05032020m.jpg"
@@ -19,7 +19,7 @@ const movies =  {
       "actor": "Vikram prabhu",
       "director": "Rajdeep",
       "language":	"Tamil",
-       "theatre": "Palazzo Cinemas, Vadapalani, Chennai",
+       "theatre": "Palazzo Cinemas",
        "adultprice":160,
        "childprice":120,
 	   "image":"https://static.toiimg.com/photo/msid-74611011/74611011.jpg?68488"
@@ -31,7 +31,7 @@ const movies =  {
       "actor": "Rajinikanth",
       "director": "AR Murugadoss",
       "language":	"Tamil",
-       "theatre": "S2 Theyagaraja, Thiruvanmiyur, Chennai",
+       "theatre": "S2 Theyagaraja",
        "adultprice":160,
        "childprice":120,
 	   "image":"https://m.media-amazon.com/images/M/MV5BMTVmODRhY2EtZmYyZi00Njk5LWIzNzUtZTllYzU4YzlkNTNhXkEyXkFqcGdeQXVyMjUxMTY3ODM@._V1_.jpg"
@@ -43,7 +43,7 @@ const movies =  {
       "actor": "Ashok Selvan",
       "director": "Ashwath Marimuthu",
       "language":	"Tamil",
-       "theatre": "Kamala Cinemas, Vadapalani, Chennai",
+       "theatre": "Kamala Cinemas",
        "adultprice":160,
        "childprice":120,
 	   "image":"https://static.toiimg.com/thumb/msid-71633130,imgsize-715735,width-800,height-600,resizemode-75/71633130.jpg"
@@ -55,7 +55,7 @@ const movies =  {
        "actor": "Dhanush",
       "director": "R.S.Durai Senthilkumar",
        "language":	"Tamil",
-       "theatre": "Escape Cinemas, Royapettah, Chennai",
+       "theatre": "Escape Cinemas",
        "adultprice":160,
        "childprice":120,
 	   "image":"https://i.ytimg.com/vi/z3zCeZJh0h4/maxresdefault.jpg"
@@ -70,7 +70,7 @@ const movies =  {
       "actor": "Ajay Devgn",
       "director": "Om Raut",
       "language":	"Hindi",
-      "theatre": "Sri Radhakrishna Theatre, RT Nagar, Bengaluru",
+      "theatre": "Sri Radhakrishna Theatre",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://i.ytimg.com/vi/cffAGIYTEHU/maxresdefault.jpg"
@@ -82,7 +82,7 @@ const movies =  {
       "actor": "Tiger Shroff",
       "director": "Ahmed Khan",
        "language":	"Hindi",
-      "theatre": "PVR Koramangla, Adugodi, Bengaluru",
+      "theatre": "PVR Koramangla",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://bloximages.chicago2.vip.townnews.com/indiawest.com/content/tncms/assets/v3/editorial/1/21/121a3814-67ac-11ea-8dbe-0fbb953b63cb/5e6fb887063ff.image.jpg?resize=480%2C630"
@@ -94,7 +94,7 @@ const movies =  {
       "actor": "Chiranjeevi Sarja",
       "director": "Shiva Tejass",
       "language":	"Kannada",
-      "theatre": "Sampige Theatre,Malleshwaram, Bengaluru",
+      "theatre": "Sampige Theatre",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://static.toiimg.com/photo/msid-74592060/74592060.jpg?45808"
@@ -106,7 +106,7 @@ const movies =  {
        "actor": "Aditya Roy Kapur",
       "director": "Mohit suri",
       "language":	"Hindi",
-      "theatre": "Pushpanjali Theatre,Dooravani Nagar, Bengaluru",
+      "theatre": "Pushpanjali Theatre",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://images.newindianexpress.com/uploads/user/imagelibrary/2020/1/31/w1200X800/Malang.jpg"
@@ -118,7 +118,7 @@ const movies =  {
       "actor": "Deepak BC",
       "director": "Deepak BC",
       "language":	"kannada",
-      "theatre": "Ganesh Theatre,Bangalore Urban, Bengaluru",
+      "theatre": "Ganesh Theatre",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://filmgappa.com/wp-content/uploads/2019/03/IMG-20190305-WA0004-682x1024.jpg"
@@ -132,7 +132,7 @@ const movies =  {
       "actor": "Irrfan Khan",
       "director": "Homi Adajania",
       "language":	"Hindi",
-      "theatre": "PVR Cinemas, Hyderabad",
+      "theatre": "PVR Cinemas",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://cdn.siasat.com/wp-content/uploads/2020/02/Angrezi-Medium-1.jpg"
@@ -144,7 +144,7 @@ const movies =  {
       "actor": "Karteek Anand",
       "director": "Karteek Anand",
       "language":	"Telugu",
-      "theatre": "INOX Maheshwari Parameshwari, Hyderabad",
+      "theatre": "INOX Maheshwari Parameshwari",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2019/04/06/eureka-Movie-ugadi-wishes-poster-.jpg?fit=2475%2C1392&quality=90&zoom=1&ssl=1"
@@ -156,7 +156,7 @@ const movies =  {
       "actor": "Trishna Mukherjee",
       "director": "Srividya Basawa",
       "language":	"Telugu",
-      "theatre": "BVK Multiplex Vijayalakshmi Cinemas, Hyderabad",
+      "theatre": "BVK Multiplex Vijayalakshmi Cinemas",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://m.media-amazon.com/images/M/MV5BYjk0NWY0MDgtNmI2OC00OGEwLTllYjctNmU0YzRhNDM5Mjg3XkEyXkFqcGdeQXVyNzgxMjUzNzk@._V1_.jpg"
@@ -168,7 +168,7 @@ const movies =  {
       "actor": "GPS",
       "director": "Murali Ramaswamy",
       "language":	"Telugu",
-      "theatre": "Asian Shiva Ganga, Hyderabad",
+      "theatre": "Asian Shiva Ganga",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://1.bp.blogspot.com/-IsBlH3v8jp8/XmyDtHNk3aI/AAAAAAAAGls/JGP_dPeiSgETmpVNUFzebP_tXmq8DDdaACLcBGAsYHQ/s1600/premapipasi.jpg"
@@ -180,7 +180,7 @@ const movies =  {
       "actor": "Kartik Aaryan",
       "director": "Imtiaz Ali",
       "language":	"Hindi",
-      "theatre": "Prasads Multiplex, Hyderabad",
+      "theatre": "Prasads Multiplex",
        "adultprice":160,
        "childprice":120,
 	   "image": "https://upload.wikimedia.org/wikipedia/en/4/4c/Love_Aaj_Kal_film_poster.jpg"
