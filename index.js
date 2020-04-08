@@ -17,6 +17,7 @@ app.post('/booking', (req, res) => {
 	if(req.body.queryResult.intent.displayName === 'movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();		
+		console.log('movies[location]', movies[location]);
 			for (i in movies[location]) {				
 				x.push(					
 					{
@@ -32,7 +33,8 @@ app.post('/booking', (req, res) => {
 						]
 					}					
 				);
-			}				
+			}
+		console.log('x',x);
 		return res.json({			
 		  "facebook": {
 			"attachment": {
