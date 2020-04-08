@@ -23,7 +23,7 @@ app.post('/booking', (req, res) => {
 					{
 						"title": movies[location][i].name +" Rating: "+ movies[location][i].rating +"/5",
 						"image_url": movies[location][i].image,
-						"subtitle": "Actor: "+ movies[location][i].actor +"\n Synopsis: "+ movies[location][i].synopsis +" \n Director: "+movies[location][i].director +" \n Language: "+ movies[location][i].language +" \n Theatre: "+ movies[location][i].theatre +" \n Adult: "+ movies[location][i].adultprice +" \n Child: "+ movies[location][i].childprice,
+						"subtitle": "Actor: "+ movies[location][i].actor +" Synopsis: "+ movies[location][i].synopsis +" Director: "+movies[location][i].director +" Language: "+ movies[location][i].language +" Theatre: "+ movies[location][i].theatre +" Adult: "+ movies[location][i].adultprice +" Child: "+ movies[location][i].childprice,
 						"buttons": [
 							{
 								"type": "postback",
