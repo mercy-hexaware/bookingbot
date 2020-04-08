@@ -83,5 +83,7 @@ app.post('/booking', (req, res) => {
 				}
 			}
 		});	
-	}	
+	}else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
+		console.log('outputContexts',req.body.queryResult.parameters.outputContexts);
+	}
 });
