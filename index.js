@@ -60,7 +60,7 @@ app.post('/booking', (req, res) => {
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];	
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){		
-        booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'];
+        booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'].toLowerCase();
 	    console.log('booking_time',booking_time);
 		return res.json({
 			"fulfillmentText": "Now playing movies",			
@@ -84,6 +84,67 @@ app.post('/booking', (req, res) => {
 			}
 		});	
 	}else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
+		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given
+		_name, moviedetails, subtotal, total_cost;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
+		customDel = req.body.queryResult.outputContexts;
+		for (j in customDel) {
+			if(customDel[j].lifespanCount){
+				console.log('j',j);
+			}
+		}
+		console.log('card-number',req.body.queryResult.outputContexts[j-1]);
+		customerData = req.body.queryResult.outputContexts[j-1];
+		console.log("location",customerData.parameters["geo-city"]);		
+		ticket_count = customerData.parameters["ticket_count"];
+		booking_date = customerData.parameters["booking_date"];	  	
+		booking_time = customerData.parameters["booking_time.original"];
+		payment_card = customerData.parameters["payment_card"];
+		card_number = customerData.parameters["card-number"];
+		phone_number = customerData.parameters["phone-number"];
+		given_name = customerData.parameters["given-name"];
+		for (i in movies[location]) {
+			if(movies[location].name.toLowerCase() == "booking_movie"){
+				console.log('i',i);
+			}
+		}
+		console.log('moviedetails',movies[location][i-1]);
+		moviedetails = movies[location][i-1];
+		subtotal = ticket_count * moviedetails["price"];
+		total_cost = subtotal + 6.19;
+		return res.json({
+			"fulfillmentText": "Movie Ticket",			
+			"source": "facebook",
+			'payload': {
+				"facebook": {
+					"attachment": {
+					   "type": "template",
+					   "payload": {
+							"template_type": "receipt",
+							"recipient_name": given_name, 
+							"order_number": "12345678902",
+							"currency": "INR",
+							"payment_method": payment_card +" "+ card_number,        
+							"timestamp": "1428444852",        
+							"summary": {
+							  "subtotal": subtotal,							  
+							  "total_tax": 6.19,
+							  "total_cost": total_cost
+							},       
+							"elements": [
+								{
+									"title": booking_movie,
+									"subtitle": moviedetails["theatre"],
+									"quantity": ticket_count,
+									"price": moviedetails["price"],
+									"currency": "INR",
+									"image_url": moviedetails["image"]
+								}
+							]
+						}
+					}
+				}
+			}		  
+		});
 	}
 });
