@@ -35,16 +35,20 @@ app.post('/booking', (req, res) => {
 				);
 			}
 		console.log('x',x);
-		return res.json({			
-		  "facebook": {
-			"attachment": {
-			  "type": "template",
-			  "payload": {
-				"template_type": "generic",
-				"elements": x
-			  }
-			}
-		  }			
+		return res.json({
+			"fulfillmentText": "displayed&spoken response",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": x
+						}
+					}
+				}
+			}		  
 		});
 	}
 });
