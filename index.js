@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
+let location, booking_movie;
 app.post('/booking', (req, res) => {
 	console.log('webhook');
-    console.log(req.body);
-	let location, booking_movie;
+    console.log(req.body);	
 	if(req.body.queryResult.intent.displayName === 'movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();		
