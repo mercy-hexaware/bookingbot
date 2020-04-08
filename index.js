@@ -54,7 +54,7 @@ app.post('/booking', (req, res) => {
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'];		
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
-		console.log('data',req.body);
+		console.log('body',req.body);
         console.log('booking_movie',booking_movie);
 	}
 });
