@@ -56,6 +56,6 @@ app.post('/booking', (req, res) => {
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
 		console.log('ticket_count',req.body.queryResult.parameters['ticket_count']);
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
-		console.log('time',req.body.originalDetectIntentRequest.payload['data'];
+		console.log('time',req.body.originalDetectIntentRequest.payload['data']);
 	}
 });
