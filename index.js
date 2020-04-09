@@ -115,7 +115,7 @@ app.post('/booking', (req, res) => {
 		subtotal = ticket_count * moviedetails["price"];
 		let tax = subtotal * 0.06;
 		function fmtPrice(tax) {
-			let result="$"+Math.floor(tax)+".";
+			let result=Math.floor(tax)+".";
 			let cents=100*(tax-Math.floor(tax))+0.5;
 			result += Math.floor(cents/10);
 			result += Math.floor(cents%10);
@@ -149,7 +149,7 @@ app.post('/booking', (req, res) => {
 							"order_number": "12345678902",
 							"currency": "INR",
 							"payment_method": payment_card +" "+ card_number,        
-							"timestamp": "1428444852",        
+							"timestamp": Math.floor(Date.now() / 1000),        
 							"summary": {
 							  "subtotal": subtotal,                              						  
 							  "total_tax": taxvalue,
