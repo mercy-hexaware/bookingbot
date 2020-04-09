@@ -121,7 +121,9 @@ app.post('/booking', (req, res) => {
 			result += Math.floor(cents%10);
 			return result;
 		}
-		total_cost = subtotal + fmtPrice(tax);
+		let taxvalue = fmtPrice(tax);
+		console.log('taxvalue',taxvalue);
+		total_cost = subtotal + taxvalue;
 		let date = new Date(booking_date);
 		let year = date.getFullYear();
 		let month = date.getMonth()+1;
@@ -147,10 +149,10 @@ app.post('/booking', (req, res) => {
 							"order_number": "12345678902",
 							"currency": "INR",
 							"payment_method": payment_card +" "+ card_number,        
-							"timestamp": Math.floor(Date.now() / 1000),        
+							"timestamp": "1428444852",        
 							"summary": {
 							  "subtotal": subtotal,                              						  
-							  "total_tax": fmtPrice(tax),
+							  "total_tax": taxvalue,
 							  "total_cost": total_cost
 							},       
 							"elements": [
