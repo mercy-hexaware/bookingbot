@@ -59,30 +59,58 @@ app.post('/booking', (req, res) => {
 		ticket_count = req.body.queryResult.parameters['ticket_count'];
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];	
-	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){		
+	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
+		let i, indexNo, moviedetails, subtotal, tax
         booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'].toLowerCase();
 	    console.log('booking_time',booking_time);
+		for (i in movies[location]) {
+			if(movies[location][i].name.toLowerCase() == booking_movie){
+				indexNo = i;
+				console.log('i',indexNo);				
+			}
+		}
+		console.log('moviedetails',movies[location][indexNo]);
+		moviedetails = movies[location][indexNo];		
+		subtotal = ticket_count * eval(moviedetails["price"]);
+		tax = eval(subtotal) * eval(0.06);		
+		let taxvalue = fmtPrice(tax);
+		console.log('taxvalue',taxvalue);
+		let total_cost = eval(subtotal) + eval(taxvalue);
+		console.log('total_cost',total_cost);
+		total_cost = fmtPrice(total_cost);
 		return res.json({
 			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
 			'payload': {		
-				"facebook": {					
-					"text": "Shall we go for payment process",
-					"quick_replies":[
-						{
-							"content_type":"text",
-							"title":"Yes",
-							"payload":"payment yes"								
-						},
-						{
-							"content_type":"text",
-							"title":"Home",
-							"payload":"Hi"
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": [
+								{
+									"title": moviedetails.name,
+									"image_url": moviedetails.image,
+									"subtitle": "Total payment amount include tax= "+total_cost,
+									"buttons": [
+										{
+											"type": "postback",
+											"title": 'Payment',
+											"payload": "payment yes"
+										},
+										{
+											"type": "postback",
+											"title": 'Home',
+											"payload": "Hi"
+										}
+									]
+								}
+						    ]	
 						}
-					]					
+					}
 				}
-			}
-		});	
+			}		  
+		});
 	}else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
 		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ ;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
@@ -113,14 +141,7 @@ app.post('/booking', (req, res) => {
 		console.log('moviedetails',movies[location][indexNo]);
 		moviedetails = movies[location][indexNo];		
 		subtotal = ticket_count * eval(moviedetails["price"]);
-		let tax = eval(subtotal) * eval(0.06);
-		function fmtPrice(tax) {
-			let result=Math.floor(tax)+".";
-			let cents=100*(tax-Math.floor(tax))+0.5;
-			result += Math.floor(cents/10);
-			result += Math.floor(cents%10);
-			return result;
-		}
+		let tax = eval(subtotal) * eval(0.06);		
 		let taxvalue = fmtPrice(tax);
 		console.log('taxvalue',taxvalue);
 		total_cost = eval(subtotal) + eval(taxvalue);
@@ -174,3 +195,11 @@ app.post('/booking', (req, res) => {
 		});
 	}
 });
+function fmtPrice(tax)
+ {
+	let result=Math.floor(tax)+".";
+	let cents=100*(tax-Math.floor(tax))+0.5;
+	result += Math.floor(cents/10);
+	result += Math.floor(cents%10);
+	return result;
+}
