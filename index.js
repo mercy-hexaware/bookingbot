@@ -84,16 +84,17 @@ app.post('/booking', (req, res) => {
 			}
 		});	
 	}else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
-		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost;
+		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ ;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
 		customDel = req.body.queryResult.outputContexts;
 		for (j in customDel) {
 			if(customDel[j].lifespanCount){
-				console.log('j',j);
+				indexJ = j;
+				console.log('j',indexJ);
 			}
 		}
-		console.log('customerData',req.body.queryResult.outputContexts[j]);
-		customerData = req.body.queryResult.outputContexts[j];
+		console.log('customerData',req.body.queryResult.outputContexts[indexJ]);
+		customerData = req.body.queryResult.outputContexts[indexJ];
 		console.log("location",location);		
 		ticket_count = customerData.parameters["ticket_count"];
 		booking_date = customerData.parameters["booking_date"];	  	
@@ -105,12 +106,12 @@ app.post('/booking', (req, res) => {
 		console.log('booking_movie',booking_movie);
 		for (i in movies[location]) {
 			if(movies[location][i].name.toLowerCase() == booking_movie){
-				console.log('i',i);
+				indexNo = i;
+				console.log('i',indexNo);				
 			}
 		}
-		console.log('moviedetails',movies[location][i]);
-		moviedetails = movies[location][i];
-		console.log('moviedetails',moviedetails);
+		console.log('moviedetails',movies[location][indexNo]);
+		moviedetails = movies[location][indexNo];		
 		subtotal = ticket_count * moviedetails["price"];
 		total_cost = subtotal + 6.19;
 		return res.json({
