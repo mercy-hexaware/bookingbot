@@ -103,12 +103,13 @@ app.post('/booking', (req, res) => {
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
 		for (i in movies[location]) {
-			if(movies[location].name.toLowerCase() == "booking_movie"){
+			if(movies[location][i].name.toLowerCase() == booking_movie){
 				console.log('i',i);
 			}
 		}
 		console.log('moviedetails',movies[location][i-1]);
 		moviedetails = movies[location][i-1];
+		console.log('moviedetails',moviedetails);
 		subtotal = ticket_count * moviedetails["price"];
 		total_cost = subtotal + 6.19;
 		return res.json({
