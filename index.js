@@ -113,7 +113,15 @@ app.post('/booking', (req, res) => {
 		console.log('moviedetails',movies[location][indexNo]);
 		moviedetails = movies[location][indexNo];		
 		subtotal = ticket_count * moviedetails["price"];
-		total_cost = subtotal + 6.19;
+		let tax = subtotal * 0.06;
+		function fmtPrice(tax) {
+			let result="$"+Math.floor(tax)+".";
+			let cents=100*(tax-Math.floor(tax))+0.5;
+			result += Math.floor(cents/10);
+			result += Math.floor(cents%10);
+			return result;
+		}
+		total_cost = subtotal + fmtPrice(tax);
 		let date = new Date(booking_date);
 		let year = date.getFullYear();
 		let month = date.getMonth()+1;
@@ -141,8 +149,8 @@ app.post('/booking', (req, res) => {
 							"payment_method": payment_card +" "+ card_number,        
 							"timestamp": Math.floor(Date.now() / 1000),        
 							"summary": {
-							  "subtotal": subtotal,							  
-							  "total_tax": 6.19,
+							  "subtotal": subtotal,                              						  
+							  "total_tax": fmtPrice(tax),
 							  "total_cost": total_cost
 							},       
 							"elements": [
