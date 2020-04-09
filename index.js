@@ -91,7 +91,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": moviedetails.name,
 									"image_url": moviedetails.image,
-									"subtitle": "Total payment amount include tax= "+total_cost,
+									"subtitle": "Total payment amount include tax= Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
@@ -146,7 +146,7 @@ app.post('/booking', (req, res) => {
 		console.log('taxvalue',taxvalue);
 		total_cost = eval(subtotal) + eval(taxvalue);
 		console.log('total_cost',total_cost);
-		total_cost = fmtPrice(total_cost);console.log('total_cost2',total_cost);	
+		total_cost = fmtPrice(total_cost);		
 		let date = new Date(booking_date);
 		let year = date.getFullYear();
 		let month = date.getMonth()+1;
