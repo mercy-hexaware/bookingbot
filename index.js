@@ -4,6 +4,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const request = require('request');
 const movies = require('./movie');
+const events = require('./event');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -194,21 +195,22 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}else if(req.body.queryResult.intent.displayName === 'events - city'){
-		console.log('data', req.body.originalDetectIntentRequest.payload['data']);
-		/*let  x=[], i;
-		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
+		console.log('data', req.body.originalDetectIntentRequest.payload.data.message['text'].toLowerCase());
+		let  x=[], i, info;
+		location = req.body.originalDetectIntentRequest.payload.data.message['text'].toLowerCase();
 		console.log('location',location);
-		console.log('movies[location]', movies[location]);
-			for (i in movies[location]) {				
+		console.log('events[location]', events[location]);
+			for (i in events[location]) {
+				info = events[location][i].event === 0 ? "18+ event" : "";
 				x.push(					
 					{
-						"title": movies[location][i].name,
-						"image_url": movies[location][i].image,
-						"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
+						"title": events[location][i].name,
+						"image_url": events[location][i].image,
+						"subtitle": info +" \n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
 						"buttons": [
 							{
 								"type": "postback",
-								"title": movies[location][i].name,
+								"title": events[location][i].name,
 								"payload": "booking movie ticket"
 							}
 						]
@@ -217,7 +219,7 @@ app.post('/booking', (req, res) => {
 			}
 		console.log('x',x);
 		return res.json({
-			"fulfillmentText": "Now playing movies",			
+			"fulfillmentText": "Now playing Events",			
 			"source": "facebook",
 			'payload': {		
 				"facebook": {
@@ -230,7 +232,7 @@ app.post('/booking', (req, res) => {
 					}
 				}
 			}		  
-		});*/
+		});
 	}
 	
 function fmtPrice(tax)
