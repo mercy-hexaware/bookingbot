@@ -194,7 +194,7 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}else if(req.body.queryResult.intent.displayName === 'events - city'){
-		console.log('data', req.body.queryResult.outputContexts);
+		console.log('data', req.body.originalDetectIntentRequest.payload['data']);
 		/*let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
 		console.log('location',location);
