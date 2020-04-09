@@ -114,6 +114,18 @@ app.post('/booking', (req, res) => {
 		moviedetails = movies[location][indexNo];		
 		subtotal = ticket_count * moviedetails["price"];
 		total_cost = subtotal + 6.19;
+		let date = new Date(booking_date);
+		let year = date.getFullYear();
+		let month = date.getMonth()+1;
+		let dt = date.getDate();
+		if (dt < 10) {
+		  dt = '0' + dt;
+		}
+		if (month < 10) {
+		  month = '0' + month;
+		}
+		let bookDay = year+'-' + month + '-'+dt;
+		console.log(year+'-' + month + '-'+dt);
 		return res.json({
 			"fulfillmentText": "Movie Ticket",			
 			"source": "facebook",
@@ -127,7 +139,7 @@ app.post('/booking', (req, res) => {
 							"order_number": "12345678902",
 							"currency": "INR",
 							"payment_method": payment_card +" "+ card_number,        
-							"timestamp": "1428444852",        
+							"timestamp": Math.floor(Date.now() / 1000),        
 							"summary": {
 							  "subtotal": subtotal,							  
 							  "total_tax": 6.19,
@@ -136,7 +148,7 @@ app.post('/booking', (req, res) => {
 							"elements": [
 								{
 									"title": booking_movie[0].toUpperCase() + booking_movie.slice(1),
-									"subtitle": booking_date +" "+ booking_time +", "+  moviedetails["theatre"],
+									"subtitle": bookDay +" "+ booking_time +", "+  moviedetails["theatre"],
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
 									"currency": "INR",
