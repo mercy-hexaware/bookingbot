@@ -123,7 +123,7 @@ app.post('/booking', (req, res) => {
 		}
 		let taxvalue = fmtPrice(tax);
 		console.log('taxvalue',taxvalue);
-		total_cost = subtotal + taxvalue;
+		total_cost = eval(subtotal) + eval(taxvalue);
 		console.log('total_cost',total_cost);
 		total_cost = fmtPrice(total_cost);console.log('total_cost2',total_cost);	
 		let date = new Date(booking_date);
