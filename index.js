@@ -53,7 +53,7 @@ app.post('/booking', (req, res) => {
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
-        booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'];		
+        booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();		
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
 		console.log('ticket_count',req.body.queryResult.parameters['ticket_count']);
 		ticket_count = req.body.queryResult.parameters['ticket_count'];
@@ -92,9 +92,9 @@ app.post('/booking', (req, res) => {
 				console.log('j',j);
 			}
 		}
-		console.log('card-number',req.body.queryResult.outputContexts[j-1]);
-		customerData = req.body.queryResult.outputContexts[j-1];
-		console.log("location",customerData.parameters["geo-city"]);		
+		console.log('customerData',req.body.queryResult.outputContexts[j]);
+		customerData = req.body.queryResult.outputContexts[j];
+		console.log("location",location);		
 		ticket_count = customerData.parameters["ticket_count"];
 		booking_date = customerData.parameters["booking_date"];	  	
 		booking_time = customerData.parameters["booking_time.original"];
@@ -102,13 +102,14 @@ app.post('/booking', (req, res) => {
 		card_number = customerData.parameters["card-number"];
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
+		console.log('booking_movie',booking_movie);
 		for (i in movies[location]) {
 			if(movies[location][i].name.toLowerCase() == booking_movie){
 				console.log('i',i);
 			}
 		}
-		console.log('moviedetails',movies[location][i-1]);
-		moviedetails = movies[location][i-1];
+		console.log('moviedetails',movies[location][i]);
+		moviedetails = movies[location][i];
 		console.log('moviedetails',moviedetails);
 		subtotal = ticket_count * moviedetails["price"];
 		total_cost = subtotal + 6.19;
