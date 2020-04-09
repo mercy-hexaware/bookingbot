@@ -112,8 +112,8 @@ app.post('/booking', (req, res) => {
 		}
 		console.log('moviedetails',movies[location][indexNo]);
 		moviedetails = movies[location][indexNo];		
-		subtotal = ticket_count * moviedetails["price"];
-		let tax = subtotal * 0.06;
+		subtotal = ticket_count * eval(moviedetails["price"]);
+		let tax = eval(subtotal) * eval(0.06);
 		function fmtPrice(tax) {
 			let result=Math.floor(tax)+".";
 			let cents=100*(tax-Math.floor(tax))+0.5;
