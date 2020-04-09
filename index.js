@@ -193,13 +193,53 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
+	}else if(req.body.queryResult.intent.displayName === 'events'){
+		console.log('data',req.body.originalDetectIntentRequest.payload['data']);
+		/*let  x=[], i;
+		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
+		console.log('location',location);
+		console.log('movies[location]', movies[location]);
+			for (i in movies[location]) {				
+				x.push(					
+					{
+						"title": movies[location][i].name,
+						"image_url": movies[location][i].image,
+						"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
+						"buttons": [
+							{
+								"type": "postback",
+								"title": movies[location][i].name,
+								"payload": "booking movie ticket"
+							}
+						]
+					}					
+				);
+			}
+		console.log('x',x);
+		return res.json({
+			"fulfillmentText": "Now playing movies",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": x
+						}
+					}
+				}
+			}		  
+		});*/
+	}
+	
+function fmtPrice(tax)
+ 	{
+		let result=Math.floor(tax)+".";
+		let cents=100*(tax-Math.floor(tax))+0.5;
+		result += Math.floor(cents/10);
+		result += Math.floor(cents%10);
+		return result;
 	}
 });
-function fmtPrice(tax)
- {
-	let result=Math.floor(tax)+".";
-	let cents=100*(tax-Math.floor(tax))+0.5;
-	result += Math.floor(cents/10);
-	result += Math.floor(cents%10);
-	return result;
-}
+
