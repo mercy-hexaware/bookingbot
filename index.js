@@ -112,7 +112,8 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
-	}else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
+	}
+	else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
 		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ ;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
 		customDel = req.body.queryResult.outputContexts;
@@ -194,7 +195,8 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
-	}else if(req.body.queryResult.intent.displayName === 'events - city'){
+	}
+	else if(req.body.queryResult.intent.displayName === 'events - city'){
 		console.log('data', req.body.originalDetectIntentRequest.payload.data.message['text'].toLowerCase());
 		let  x=[], i, info;
 		location = req.body.originalDetectIntentRequest.payload.data.message['text'].toLowerCase();
@@ -211,7 +213,7 @@ app.post('/booking', (req, res) => {
 							{
 								"type": "postback",
 								"title": events[location][i].name,
-								"payload": "booking movie ticket"
+								"payload": "booking event"
 							}
 						]
 					}					
@@ -233,6 +235,59 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
+	}
+	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -time'){
+		let i, indexNo, moviedetails, subtotal, tax
+        booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'].toLowerCase();
+	    console.log('booking_time',booking_time);
+		/*for (i in events[location]) {
+			if(events[location][i].name.toLowerCase() == booking_movie){
+				indexNo = i;
+				console.log('i',indexNo);				
+			}
+		}
+		console.log('moviedetails',movies[location][indexNo]);
+		moviedetails = movies[location][indexNo];		
+		subtotal = ticket_count * eval(moviedetails["price"]);
+		tax = eval(subtotal) * eval(0.06);		
+		let taxvalue = fmtPrice(tax);
+		console.log('taxvalue',taxvalue);
+		let total_cost = eval(subtotal) + eval(taxvalue);
+		console.log('total_cost',total_cost);
+		total_cost = fmtPrice(total_cost);
+		return res.json({
+			"fulfillmentText": "Now playing movies",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": [
+								{
+									"title": moviedetails.name,
+									"image_url": moviedetails.image,
+									"subtitle": "Total payment amount include tax= Rs."+total_cost,
+									"buttons": [
+										{
+											"type": "postback",
+											"title": 'Payment',
+											"payload": "payment yes"
+										},
+										{
+											"type": "postback",
+											"title": 'Home',
+											"payload": "Hi"
+										}
+									]
+								}
+						    ]	
+						}
+					}
+				}
+			}		  
+		});*/
 	}
 	
 function fmtPrice(tax)
