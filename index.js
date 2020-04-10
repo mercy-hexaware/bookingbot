@@ -236,6 +236,9 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
+	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket'){
+		console.log('data', req.body.originalDetectIntentRequest.payload['data']);
+	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -time'){
 		let i, indexNo, moviedetails, subtotal, tax;
         console.log('bookingdata',req.body.originalDetectIntentRequest.payload['data']);
