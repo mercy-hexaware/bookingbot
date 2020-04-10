@@ -238,8 +238,8 @@ app.post('/booking', (req, res) => {
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -time'){
 		let i, indexNo, moviedetails, subtotal, tax
-        booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'].toLowerCase();
-	    console.log('booking_time',booking_time);
+         
+	    console.log('booking details',req.body.queryResult.outputContexts);
 		/*for (i in events[location]) {
 			if(events[location][i].name.toLowerCase() == booking_movie){
 				indexNo = i;
