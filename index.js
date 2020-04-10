@@ -241,7 +241,7 @@ app.post('/booking', (req, res) => {
 		console.log('data', req.body.originalDetectIntentRequest.payload.data.postback['title']);
 		event_name = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
 		for (i in events[location]) {
-			if(events[location][i].name.toLowerCase().search(event_name)){
+			if(events[location][i].name.toLowerCase().search(event_name) != -1){
 				indexNo = i;
 				console.log('i',indexNo);				
 			}
