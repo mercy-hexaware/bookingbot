@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time;
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name;
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);	
@@ -237,7 +237,44 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket'){
-		console.log('data', req.body.originalDetectIntentRequest.payload['data']);
+		let i, indexNo;
+		console.log('data', req.body.originalDetectIntentRequest.payload.data.postback['title']);
+		event_name = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
+		for (i in events[location]) {
+			if(events[location][i].name.toLowerCase() == event_name){
+				indexNo = i;
+				console.log('i',indexNo);				
+			}
+		}
+		return res.json({
+			"fulfillmentText": "Now playing Events",			
+			"source": "facebook",
+			'payload': 
+				{
+				  "facebook": {
+					"text": "The following date are available for this event. Please select your date",
+					"quick_replies": [
+						{
+							"content_type": "text",
+							"title": events[location][indexNo].date[0],
+							"payload": "event booking date"							
+						},
+						{
+							"content_type": "text",
+							"title": events[location][indexNo].date[1],
+							"payload": "event booking date"
+						},
+						{
+							"content_type": "text",
+							"title": events[location][indexNo].date[2],
+							"payload": "event booking date"
+						}
+					]
+				}
+			}
+			
+		});
+		
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -time'){
 		let i, indexNo, moviedetails, subtotal, tax;
