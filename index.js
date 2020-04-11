@@ -282,7 +282,7 @@ app.post('/booking', (req, res) => {
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count'){
 		let i, eventdetails, subtotal, tax;
         console.log('event_count',req.body.queryResult.parameters['ticketCount']);
-		booking_count = req.body.queryResult.parameters['ticketCount'];	    
+		event_count = req.body.queryResult.parameters['ticketCount'];	    
 		console.log('event_no',event_no);
 		console.log('eventdetails',events[location][event_no]);
 		eventdetails = events[location][event_no];		
