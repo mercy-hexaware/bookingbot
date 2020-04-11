@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name;
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no;
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);	
@@ -92,7 +92,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": moviedetails.name,
 									"image_url": moviedetails.image,
-									"subtitle": "Total payment amount include tax= Rs."+total_cost,
+									"subtitle": "Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
@@ -237,13 +237,13 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket'){
-		let i, indexNo;
+		let i;
 		console.log('data', req.body.originalDetectIntentRequest.payload.data.postback['title']);
 		event_name = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
 		for (i in events[location]) {
 			if(events[location][i].name.toLowerCase().search(event_name) != -1){
-				indexNo = i;
-				console.log('i',indexNo);				
+				event_no = i;
+				console.log('i',event_no);				
 			}
 		}
 		return res.json({
@@ -256,17 +256,17 @@ app.post('/booking', (req, res) => {
 					"quick_replies": [
 						{
 							"content_type": "text",
-							"title": events[location][indexNo].date[0],
+							"title": events[location][event_no].date[0],
 							"payload": "event booking date"							
 						},
 						{
 							"content_type": "text",
-							"title": events[location][indexNo].date[1],
+							"title": events[location][event_no].date[1],
 							"payload": "event booking date"
 						},
 						{
 							"content_type": "text",
-							"title": events[location][indexNo].date[2],
+							"title": events[location][event_no].date[2],
 							"payload": "event booking date"
 						}
 					]
@@ -276,22 +276,17 @@ app.post('/booking', (req, res) => {
 		});		
 	}
 	else if(req.body.queryResult.intent.displayName ==="events - booking-ticket - custom"){
-		console.log('booking date',req.body.originalDetectIntentRequest.payload['data']);
-	    console.log('booking date',req.body.queryResult.outputContexts);
+		console.log('booking date',req.body.originalDetectIntentRequestpayload.data.message['text']	 );
+	    event_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
 	}
-	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -time'){
-		let i, indexNo, moviedetails, subtotal, tax;
-        console.log('bookingdata',req.body.originalDetectIntentRequest.payload['data']);
-	    console.log('booking details',req.body.queryResult.outputContexts);
-		/*for (i in events[location]) {
-			if(events[location][i].name.toLowerCase() == booking_movie){
-				indexNo = i;
-				console.log('i',indexNo);				
-			}
-		}
-		console.log('moviedetails',movies[location][indexNo]);
-		moviedetails = movies[location][indexNo];		
-		subtotal = ticket_count * eval(moviedetails["price"]);
+	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count'){
+		let i, eventdetails, subtotal, tax;
+        console.log('event_count',req.body.queryResult.parameters['ticketCount']);
+		booking_count = req.body.queryResult.parameters['ticketCount'];	    
+		console.log('event_no',event_no);
+		console.log('eventdetails',events[location][event_no]);
+		eventdetails = events[location][event_no];		
+		subtotal = event_count * eval(eventdetails["price"]);
 		tax = eval(subtotal) * eval(0.06);		
 		let taxvalue = fmtPrice(tax);
 		console.log('taxvalue',taxvalue);
@@ -299,7 +294,7 @@ app.post('/booking', (req, res) => {
 		console.log('total_cost',total_cost);
 		total_cost = fmtPrice(total_cost);
 		return res.json({
-			"fulfillmentText": "Now playing movies",			
+			"fulfillmentText": "Request for payment",			
 			"source": "facebook",
 			'payload': {		
 				"facebook": {
@@ -311,7 +306,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": moviedetails.name,
 									"image_url": moviedetails.image,
-									"subtitle": "Total payment amount include tax= Rs."+total_cost,
+									"subtitle": "Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
@@ -330,7 +325,7 @@ app.post('/booking', (req, res) => {
 					}
 				}
 			}		  
-		});*/
+		});
 	}
 	
 function fmtPrice(tax)
