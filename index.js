@@ -304,8 +304,8 @@ app.post('/booking', (req, res) => {
 						"template_type": "generic",
 						"elements": [
 								{
-									"title": moviedetails.name,
-									"image_url": moviedetails.image,
+									"title": eventdetails.name,
+									"image_url": eventdetails.image,
 									"subtitle": "Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
