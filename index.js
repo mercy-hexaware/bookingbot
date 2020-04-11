@@ -273,8 +273,11 @@ app.post('/booking', (req, res) => {
 				}
 			}
 			
-		});
-		
+		});		
+	}
+	else if(req.body.queryResult.intent.displayName ==="events - booking-ticket - custom"){
+		console.log('booking date',req.body.originalDetectIntentRequest.payload['data']);
+	    console.log('booking date',req.body.queryResult.outputContexts);
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -time'){
 		let i, indexNo, moviedetails, subtotal, tax;
