@@ -194,7 +194,7 @@ app.post('/booking', (req, res) => {
 		});		
 	}
 	else if(req.body.queryResult.intent.displayName ==="events - booking-ticket - custom"){
-		console.log('booking date',req.body.originalDetectIntentRequestpayload.data.message['text']	 );
+		console.log('booking date',req.body.originalDetectIntentRequest.payload.data.message['text']	 );
 	    event_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count'){
