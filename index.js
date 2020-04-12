@@ -261,6 +261,8 @@ app.post('/booking', (req, res) => {
 		console.log("location",location);		
 		ticket_count = customerData.parameters["ticket_count"];
 		payment_card = customerData.parameters["payment_card"];
+	    let secCode = payment_card.substring(payment_card.length-3);
+		payment_card = '**** **** **** *'+secCode;
 		card_number = customerData.parameters["card-number"];
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
@@ -277,7 +279,7 @@ app.post('/booking', (req, res) => {
 			console.log('moviedetails',movies[location][indexNo]);
 			moviedetails = movies[location][indexNo];		
 			subtotal = ticket_count * eval(moviedetails["price"]);
-			details = booking_time+" "+moviedetails['theatre'];
+			details = booking_time+", "+moviedetails['theatre'];
 		}
 		else{
 			booking_date = event_date;
@@ -334,7 +336,7 @@ app.post('/booking', (req, res) => {
 							"elements": [
 								{
 									"title": booking_movie? booking_movie[0].toUpperCase() + booking_movie.slice(1): event_name[0].toUpperCase() + event_name.slice(1),
-									"subtitle": bookDay +" "+ details,
+									"subtitle": bookDay +", "+ details,
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
 									"currency": "INR",
