@@ -331,8 +331,8 @@ app.post('/booking', (req, res) => {
 							},       
 							"elements": [
 								{
-									"title": booking_movie[0].toUpperCase() + booking_movie.slice(1),
-									"subtitle": bookDay +" "+ booking_time +", "+  moviedetails["theatre"]? moviedetails["theatre"]:moviedetails["venue"],
+									"title": booking_movie? booking_movie[0].toUpperCase() + booking_movie.slice(1): event_name[0].toUpperCase() + event_name.slice(1),
+									"subtitle": bookDay +" "+ booking_time +", "+  moviedetails["theatre"]? moviedetails["theatre"]:moviedetails["venueew"],
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
 									"currency": "INR",
