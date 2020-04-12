@@ -194,7 +194,7 @@ app.post('/booking', (req, res) => {
 		});		
 	}
 	else if(req.body.queryResult.intent.displayName ==="events - booking-ticket - custom"){
-		console.log('booking date',req.body.originalDetectIntentRequest.payload.data.message['text']	 );
+		console.log('booking date',req.body.originalDetectIntentRequest.payload.data.message['text']);
 	    event_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count'){
@@ -269,7 +269,7 @@ app.post('/booking', (req, res) => {
 			booking_time = customerData.parameters["booking_time.original"];
 			console.log('booking_movie',booking_movie);
 			for (i in movies[location]) {
-				if(movies[location][i].name.toLowerCase() == booking_movie){
+				if(movies[location][i].name.toLowerCase().search(booking_movie)!= -1){
 					indexNo = i;
 					console.log('i',indexNo);				
 				}
@@ -282,7 +282,7 @@ app.post('/booking', (req, res) => {
 			booking_date = event_date;
 			console.log('event_name',event_name);
 			for (i in events[location]) {
-				if(events[location][i].name.toLowerCase() === event_name){
+				if(events[location][i].name.toLowerCase().search(event_name) != -1){
 					indexNo = i;
 					console.log('i',indexNo);				
 				}
