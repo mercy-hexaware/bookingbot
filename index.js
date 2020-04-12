@@ -260,8 +260,7 @@ app.post('/booking', (req, res) => {
 		customerData = req.body.queryResult.outputContexts[indexJ];
 		console.log("location",location);		
 		ticket_count = customerData.parameters["ticket_count"];
-		payment_card = customerData.parameters["payment_card"];
-	    let secCode = payment_card.substring(payment_card.length-3);
+	    let secCode = customerData.parameters["payment_card"].substring(customerData.parameters["payment_card"].length-3);
 		payment_card = '**** **** **** *'+secCode;
 		card_number = customerData.parameters["card-number"];
 		phone_number = customerData.parameters["phone-number"];
