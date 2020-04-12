@@ -260,9 +260,8 @@ app.post('/booking', (req, res) => {
 		customerData = req.body.queryResult.outputContexts[indexJ];
 		console.log("location",location);		
 		ticket_count = customerData.parameters["ticket_count"];
-	    let secCode = customerData.parameters["payment_card"].substring(customerData.parameters["payment_card"].length-3);
-		payment_card = '**** **** **** *'+secCode;
-		card_number = customerData.parameters["card-number"];
+	    payment_card = customerData.parameters["payment_card"]
+		card_number = customerData.parameters["card-number"].substring(customerData.parameters["card-number"].length-3);
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
 		if(confirm === "movie"){
@@ -325,7 +324,7 @@ app.post('/booking', (req, res) => {
 							"recipient_name": given_name, 
 							"order_number": "12345678902",
 							"currency": "INR",
-							"payment_method": payment_card +" "+ card_number,        
+							"payment_method":  payment_card+" "+ '**** **** **** *'+card_number,        
 							"timestamp": Math.floor(Date.now() / 1000),        
 							"summary": {
 							  "subtotal": subtotal,                              						  
