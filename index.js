@@ -247,7 +247,7 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
-		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ ;
+		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ, details;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
 		customDel = req.body.queryResult.outputContexts;
 		for (j in customDel) {
@@ -277,6 +277,7 @@ app.post('/booking', (req, res) => {
 			console.log('moviedetails',movies[location][indexNo]);
 			moviedetails = movies[location][indexNo];		
 			subtotal = ticket_count * eval(moviedetails["price"]);
+			details = booking_time+" "+moviedetails['theatre'];
 		}
 		else{
 			booking_date = event_date;
@@ -290,6 +291,7 @@ app.post('/booking', (req, res) => {
 			console.log('eventdetails',events[location][indexNo]);
 			moviedetails = events[location][indexNo];		
 			subtotal = ticket_count * eval(moviedetails["price"]);
+			details = moviedetails['venue'];
 		}		
 		let tax = eval(subtotal) * eval(0.06);		
 		let taxvalue = fmtPrice(tax);
@@ -332,7 +334,7 @@ app.post('/booking', (req, res) => {
 							"elements": [
 								{
 									"title": booking_movie? booking_movie[0].toUpperCase() + booking_movie.slice(1): event_name[0].toUpperCase() + event_name.slice(1),
-									"subtitle": bookDay +" "+ moviedetails["venue"],
+									"subtitle": bookDay +" "+ details,
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
 									"currency": "INR",
