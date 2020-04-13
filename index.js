@@ -127,7 +127,10 @@ app.post('/booking', (req, res) => {
 				});
 			}	
 		}
-	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
+	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count'){
+		  console.log('outputContexts',req.body.queryResult.outputContexts);
+	}
+	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
 		let i, indexNo, moviedetails, subtotal, tax;
 		confirm = "movie";
         booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'].toLowerCase();
