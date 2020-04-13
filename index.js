@@ -54,8 +54,50 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
+		let dateArr = [], today, tomorrowm, tomw, dayAfttomw;
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
-        booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();		
+        booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
+		today = new Date(); dateCal(today);
+		tomorrow = new Date(today);
+		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
+		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
+		function dateCal(){
+			var currentDate =new Date(tomdd);
+			var day = currentDate.getDate();
+			var month = currentDate.getMonth() + 1;
+			var year = currentDate.getFullYear();
+			day = day < 10 ? "0"+day : day;
+            month = month < 10 ? "0"+month : month ;
+			dateArr.push(day + "-" + month + "-" + year);
+		}
+		return res.json({
+			"fulfillmentText": "Movie date",			
+			"source": "facebook",
+			'payload': 
+				{
+				  "facebook": {
+					"text": "The following date are available for this event. Please select your date",
+					"quick_replies": [
+						{
+							"content_type": "text",
+							"title": dateArr[0],
+							"payload": "event booking date"							
+						},
+						{
+							"content_type": "text",
+							"title": dateArr[1],
+							"payload": "event booking date"
+						},
+						{
+							"content_type": "text",
+							"title": dateArr[2],
+							"payload": "event booking date"
+						}
+					]
+				}
+			}
+			
+		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
 		console.log('ticket_count',req.body.queryResult.parameters['ticket_count']);
 		ticket_count = req.body.queryResult.parameters['ticket_count'];
