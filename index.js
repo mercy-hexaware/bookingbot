@@ -104,7 +104,7 @@ app.post('/booking', (req, res) => {
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];
 		if(booking_date == ""){
-			console.log(req.body.originalDetectIntentRequest.payload['data']);
+			console.log('outputContexts',req.body.queryResult.outputContexts);
 		}
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
 		let i, indexNo, moviedetails, subtotal, tax;
