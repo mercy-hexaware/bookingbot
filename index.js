@@ -18,6 +18,7 @@ app.post('/booking', (req, res) => {
 	if(req.body.queryResult.intent.displayName === 'movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
+		if(location === "bangalore"){location = "bengaluru"}
 		console.log('location',location);
 		console.log('movies[location]', movies[location]);
 			for (i in movies[location]) {				
@@ -118,6 +119,7 @@ app.post('/booking', (req, res) => {
 		console.log('data', req.body.originalDetectIntentRequest.payload.data.message['text'].toLowerCase());
 		let  x=[], i, info;
 		location = req.body.originalDetectIntentRequest.payload.data.message['text'].toLowerCase();
+		if(location === "bangalore"){location = "bengaluru"}
 		console.log('location',location);
 		console.log('events[location]', events[location]);
 			for (i in events[location]) {
@@ -324,7 +326,7 @@ app.post('/booking', (req, res) => {
 							"recipient_name": given_name, 
 							"order_number": "12345678902",
 							"currency": "INR",
-							"payment_method":  payment_card+" "+ '**** **** **** *'+card_number,        
+							"payment_method":  payment_card +'  **** **** **** *'+card_number,        
 							"timestamp": Math.floor(Date.now() / 1000),        
 							"summary": {
 							  "subtotal": subtotal,                              						  
