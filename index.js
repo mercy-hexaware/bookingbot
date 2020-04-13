@@ -61,7 +61,7 @@ app.post('/booking', (req, res) => {
 		tomorrow = new Date(today);
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
 		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
-		function dateCal(){
+		function dateCal(tomdd){
 			var currentDate =new Date(tomdd);
 			var day = currentDate.getDate();
 			var month = currentDate.getMonth() + 1;
