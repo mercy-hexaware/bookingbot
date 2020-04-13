@@ -99,12 +99,23 @@ app.post('/booking', (req, res) => {
 			
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
-		
+		let bookingD, today, week;
 		//ticket_count = req.body.queryResult.parameters['ticket_count'];
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];
 		if(booking_date == ""){
 			console.log('outputContexts',req.body.originalDetectIntentRequest.payload.data.message['text']);
+			booking_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
+		}else{			
+			bookingD = new Date(booking_date);			
+			today = new Date();
+			week = new Date(today);
+			week = week.setDate(week.getDate() +7);
+			week = new Date(week);
+			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
+				console.log('in date');
+			else
+				console.log('out date');
 		}
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
 		let i, indexNo, moviedetails, subtotal, tax;
