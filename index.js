@@ -54,7 +54,7 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
-		let dateArr = [], today, tomorrowm, tomw, dayAfttomw;
+		let dateArr = [], today, tomorrow, tomw, dayAfttomw, currentDate, day, month, year;
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
 		today = new Date(); dateCal(today);
@@ -62,10 +62,10 @@ app.post('/booking', (req, res) => {
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
 		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
 		function dateCal(tomdd){
-			var currentDate =new Date(tomdd);
-			var day = currentDate.getDate();
-			var month = currentDate.getMonth() + 1;
-			var year = currentDate.getFullYear();
+		    currentDate =new Date(tomdd);
+		    day = currentDate.getDate();
+			month = currentDate.getMonth() + 1;
+			year = currentDate.getFullYear();
 			day = day < 10 ? "0"+day : day;
             month = month < 10 ? "0"+month : month ;
 			dateArr.push(day + "-" + month + "-" + year);
