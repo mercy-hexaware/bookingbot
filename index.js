@@ -347,7 +347,7 @@ app.post('/booking', (req, res) => {
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
 		if(confirm === "movie"){
-			booking_date = customerData.parameters["booking_date"];	  	
+			booking_date = booking_date;	  	
 			booking_time = customerData.parameters["booking_time.original"];
 			console.log('booking_movie',booking_movie);
 			for (i in movies[location]) {
@@ -415,7 +415,7 @@ app.post('/booking', (req, res) => {
 							},       
 							"elements": [
 								{
-									"title": booking_movie? booking_movie[0].toUpperCase() + booking_movie.slice(1): event_name[0].toUpperCase() + event_name.slice(1),
+									"title": moviedetails["name"][0].toUpperCase() + moviedetails["name"].slice(1),
 									"subtitle": bookDay +", "+ details,
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
