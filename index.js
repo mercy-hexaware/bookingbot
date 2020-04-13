@@ -255,7 +255,7 @@ app.post('/booking', (req, res) => {
 		for (j in customDel) {
 			if(customDel[j].lifespanCount){
 				indexJ = j;
-				console.log('j',indexJ);
+				console.log('j',indexJ);break;
 			}
 		}
 		console.log('customerData',req.body.queryResult.outputContexts[indexJ]);
@@ -273,7 +273,7 @@ app.post('/booking', (req, res) => {
 			for (i in movies[location]) {
 				if(movies[location][i].name.toLowerCase().search(booking_movie)!= -1){
 					indexNo = i;
-					console.log('i',indexNo);				
+					console.log('i',indexNo);					
 				}
 			}
 			console.log('moviedetails',movies[location][indexNo]);
