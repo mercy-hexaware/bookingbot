@@ -99,8 +99,7 @@ app.post('/booking', (req, res) => {
 			
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
-		let bookingD, today, week;
-		//ticket_count = req.body.queryResult.parameters['ticket_count'];
+		let bookingD, today, week;		
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];
 		if(booking_date == ""){
@@ -128,12 +127,19 @@ app.post('/booking', (req, res) => {
 			}	
 		}
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count'){
-		  console.log('outputContexts',req.body.queryResult.outputContexts);
-	}
-	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
-		let i, indexNo, moviedetails, subtotal, tax;
-		confirm = "movie";
-        booking_time = req.body.originalDetectIntentRequest.payload.data.message.quick_reply['payload'].toLowerCase();
+		console.log('outputContexts',req.body.queryResult.outputContexts);	
+		let i, indexNo, moviedetails, subtotal, tax, bookingoutput, bookingDetails, j, indexJ;
+		confirm = "movie";       
+		bookingoutput = req.body.queryResult.outputContexts;
+		for (j in bookingoutput) {
+			if(bookingoutput[j].lifespanCount){
+				indexJ = j;
+				console.log('j',indexJ);break;
+			}
+		}
+		bookingDetails = req.body.queryResult.outputContexts[indexJ];
+		ticket_count = bookingDetails['ticket_count'];
+		booking_time = bookingDetails['booking_time.original'];
 	    console.log('booking_time',booking_time);
 		for (i in movies[location]) {
 			if(movies[location][i].name.toLowerCase() == booking_movie){
@@ -163,12 +169,17 @@ app.post('/booking', (req, res) => {
 								{
 									"title": moviedetails.name,
 									"image_url": moviedetails.image,
-									"subtitle": "Total payment amount include tax Rs."+total_cost,
+									"subtitle": booking_time+", "+booking_date +", "+ moviedetails.theatre +" Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
-											"title": 'Payment',
+											"title": 'Book Now',
 											"payload": "payment yes"
+										},
+										{
+											"type": "postback",
+											"title": 'See other movies',
+											"payload": "Hi"
 										},
 										{
 											"type": "postback",
