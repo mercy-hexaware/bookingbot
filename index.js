@@ -81,17 +81,17 @@ app.post('/booking', (req, res) => {
 						{
 							"content_type": "text",
 							"title": dateArr[0],
-							"payload": "event booking date"							
+							"payload": "movie booking date"							
 						},
 						{
 							"content_type": "text",
 							"title": dateArr[1],
-							"payload": "event booking date"
+							"payload": "movie booking date"
 						},
 						{
 							"content_type": "text",
 							"title": dateArr[2],
-							"payload": "event booking date"
+							"payload": "movie booking date"
 						}
 					]
 				}
