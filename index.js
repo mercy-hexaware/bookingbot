@@ -361,7 +361,7 @@ app.post('/booking', (req, res) => {
 			subtotal = ticket_count * eval(moviedetails["price"]);
 			details = booking_time+", "+moviedetails['theatre'];
 		}
-		else{
+		else {
 			booking_date = event_date;
 			console.log('event_name',event_name);
 			for (i in events[location]) {
