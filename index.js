@@ -138,8 +138,8 @@ app.post('/booking', (req, res) => {
 			}
 		}
 		bookingDetails = req.body.queryResult.outputContexts[indexJ];
-		ticket_count = bookingDetails['ticket_count'];
-		booking_time = bookingDetails['booking_time.original'];
+		ticket_count = bookingDetails.parameters['ticket_count'];
+		booking_time = bookingDetails.parameters['booking_time.original'];
 	    console.log('booking_time',booking_time);
 		for (i in movies[location]) {
 			if(movies[location][i].name.toLowerCase() == booking_movie){
