@@ -99,12 +99,12 @@ app.post('/booking', (req, res) => {
 			
 		});
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
-		console.log('ticket_count',req.body.queryResult.parameters['ticket_count']);
-		ticket_count = req.body.queryResult.parameters['ticket_count'];
+		
+		//ticket_count = req.body.queryResult.parameters['ticket_count'];
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];
 		if(booking_date == ""){
-			console.log('outputContexts',req.body.queryResult.outputContexts);
+			console.log('outputContexts',req.body.originalDetectIntentRequest.payload.data.message['text']);
 		}
 	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
 		let i, indexNo, moviedetails, subtotal, tax;
