@@ -348,7 +348,7 @@ app.post('/booking', (req, res) => {
 		given_name = customerData.parameters["given-name"];
 		if(confirm === "movie"){				  	
 			booking_time = customerData.parameters["booking_time.original"];
-			console.log('booking_movie',booking_movie);
+			console.log('booking_date',booking_date);
 			for (i in movies[location]) {
 				if(movies[location][i].name.toLowerCase().search(booking_movie)!= -1){
 					indexNo = i;
@@ -361,7 +361,7 @@ app.post('/booking', (req, res) => {
 			details = booking_time+", "+moviedetails['theatre'];
 		}
 		else {
-			booking_date = event_date;
+			booking_date = event_date;console.log('booking_date',booking_date);
 			console.log('event_name',event_name);
 			for (i in events[location]) {
 				if(events[location][i].name.toLowerCase().search(event_name) != -1){
