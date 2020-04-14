@@ -332,7 +332,7 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName ==='direct_movie_booking'){
-		let i, z, indexNo, x=[], bookingD, today, week;
+		let i, z, indexNo, x=[], bookingD, today, week, error;
 	    ticket_count = req.body.queryResult.parameters['ticket_count'];
 		booking_movie = req.body.queryResult.parameters['movie_name'];
 		booking_date = req.body.queryResult.parameters['booking_date'];
@@ -373,17 +373,21 @@ app.post('/booking', (req, res) => {
 							if(bt < ms)
 							{
 							   console.log("before 7!");
+							   error = "This movie is available at 07:00 AM";
 							}    
 							else if(ms < bt && bt < f)
 							{
 							   console.log("no, before 1");
+							   error = "This movie is available at 01:00 PM";
 							}
 							else if(f < bt  && bt < es)
 							{
 							   console.log("no, before 7");
+							   error = "This movie is available at 07:00 PM";
 							}else if(bt > es)
 							{
 							   console.log("no, after 7");
+							   error = "This movie is not available after 07:00 PM";
 							}  
 						  
 					}else{
@@ -400,8 +404,9 @@ app.post('/booking', (req, res) => {
 				}
 			}
 			else
-			{				
-				return res.json({
+			{	
+				error = "Sorry, Your booking date must be within coming 7days. Please enter your booking date";
+				/*return res.json({
 					"fulfillmentText": "Movie date",			
 					"source": "facebook",
 					'payload': {
@@ -409,7 +414,7 @@ app.post('/booking', (req, res) => {
 							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
 						}
 					}
-				});
+				}); */
 		    } 
 		}	
 		
@@ -466,7 +471,8 @@ app.post('/booking', (req, res) => {
 						"template_type": "generic",
 						"elements": x
 						}
-					}
+					},
+					"text": error
 				}
 			}		  
 		});
