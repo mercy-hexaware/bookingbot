@@ -332,13 +332,87 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName ==='direct_movie_booking'){
-		let i, indexNo, x=[];
+		let i, z, indexNo, x=[], bookingD, today, week;
 	    ticket_count = req.body.queryResult.parameters['ticket_count'];
 		booking_movie = req.body.queryResult.parameters['movie_name'];
 		booking_date = req.body.queryResult.parameters['booking_date'];
 		booking_time = req.body.queryResult.parameters['booking_time'];
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();		
 		console.log('movies[location]', movies[location]);
+		if(booking_date != ""){
+			bookingD = new Date(booking_date);			
+			today = new Date();
+			week = new Date(today);
+			week = week.setDate(week.getDate() +7);
+			week = new Date(week);
+			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
+			{
+				console.log('in date');
+				if(booking_time != " "){					
+					let splitD = booking_time.split('+');					
+					let newDate = new Date(splitD[0]);
+					booking_time = newDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+				 	if(booking_time != "07:00 AM" && booking_time != "01:00 PM" && booking_time != "07:00 PM")
+					{  
+						let dTime = new Date(splitD[0]);  
+						let h = addZero(dTime.getHours());
+						let m = addZero(dTime.getMinutes());
+						let s = addZero(dTime.getSeconds());  
+						console.log(h + ":" + m + ":" + s);
+						let currentD = new Date(booking_date);
+						let jj = new Date(booking_date);
+						let iu = new Date(booking_date); 
+						let cv = new Date(booking_date);
+						let bt = cv.setHours(h,m,s);
+						console.log(bt);
+						let zero = parseInt('00', 8);
+						let es = iu.setHours(19,zero,0); console.log(es);
+						let f  = jj.setHours(13,zero,0); console.log(f);
+						let ms  = currentD.setHours(7,zero,0); console.log(ms);
+						  console.log("happy hour?")
+							if(bt < ms)
+							{
+							   console.log("before 7!");
+							}    
+							else if(ms < bt && bt < f)
+							{
+							   console.log("no, before 1");
+							}
+							else if(f < bt  && bt < es)
+							{
+							   console.log("no, before 7");
+							}else if(bt > es)
+							{
+							   console.log("no, after 7");
+							}  
+						  
+					}else{
+						  console.log('success');
+					}
+						 
+					function addZero(z) {
+						if (z < 10) {
+							z = "0" + z;
+						}
+						    return z;
+					}
+ 
+				}
+			}
+			else
+			{				
+				return res.json({
+					"fulfillmentText": "Movie date",			
+					"source": "facebook",
+					'payload': {
+						"facebook": {
+							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
+						}
+					}
+				});
+		    } 
+		}	
+		
 		for (i in movies[location]) {
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
 			{
