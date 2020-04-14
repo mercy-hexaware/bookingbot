@@ -329,7 +329,7 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
-		let customDel, j,customerData,i, ticket_count, booking_date, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ, details;
+		let customDel, j,customerData,i, ticket_count, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ, details;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
 		customDel = req.body.queryResult.outputContexts;
 		for (j in customDel) {
@@ -346,8 +346,7 @@ app.post('/booking', (req, res) => {
 		card_number = customerData.parameters["card-number"].substring(customerData.parameters["card-number"].length-3);
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
-		if(confirm === "movie"){
-			booking_date = booking_date;	  	
+		if(confirm === "movie"){				  	
 			booking_time = customerData.parameters["booking_time.original"];
 			console.log('booking_movie',booking_movie);
 			for (i in movies[location]) {
