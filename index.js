@@ -343,7 +343,8 @@ app.post('/booking', (req, res) => {
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
 			{
 				indexNo = i;
-				console.log('i',indexNo);	
+				console.log('i',indexNo);
+				x.length = 0;
 				x.push(					
 					{
 						"title": movies[location][indexNo].name,
@@ -358,6 +359,7 @@ app.post('/booking', (req, res) => {
 						]
 					}					
 				);
+				break;
 			}
 			else
 			{								
