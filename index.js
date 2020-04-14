@@ -351,7 +351,7 @@ app.post('/booking', (req, res) => {
 				if(booking_time != " "){					
 					let splitD = booking_time.split('+');					
 					let newDate = new Date(splitD[0]);
-					booking_time = newDate.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+					booking_time = newDate.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
 				 	if(booking_time != "07:00 AM" && booking_time != "01:00 PM" && booking_time != "07:00 PM")
 					{  
 						let dTime = new Date(splitD[0]);  
