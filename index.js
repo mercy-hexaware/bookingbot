@@ -369,27 +369,35 @@ app.post('/booking', (req, res) => {
 						let es = iu.setHours(19,zero,0); console.log(es);
 						let f  = jj.setHours(13,zero,0); console.log(f);
 						let ms  = currentD.setHours(7,zero,0); console.log(ms);
-						  console.log("happy hour?")
-							if(bt < ms)
-							{
-							   console.log("before 7!");
-							   error = "This movie is available at 07:00 AM";
-							}    
-							else if(ms < bt && bt < f)
-							{
-							   console.log("no, before 1");
-							   error = "This movie is available at 01:00 PM";
+						console.log("happy hour?")
+						if(bt < ms)
+						{
+						   console.log("before 7!");
+						   error = "This movie is available at 07:00 AM. Can you change your booking time?";
+						}    
+						else if(ms < bt && bt < f)
+						{
+						   console.log("no, before 1");
+						   error = "This movie is available at 01:00 PM. Can you change your booking time?";
+						}
+						else if(f < bt  && bt < es)
+						{
+						   console.log("no, before 7");
+						   error = "This movie is available at 07:00 PM. Can you change your booking time?";
+						}else if(bt > es)
+						{
+						   console.log("no, after 7");
+						   error = "This movie is not available after 07:00 PM. Can you change your booking time?";
+						}  
+						return res.json({
+							"fulfillmentText": "Movie date",			
+							"source": "facebook",
+							'payload': {
+								"facebook": {
+									"text": error
+								}
 							}
-							else if(f < bt  && bt < es)
-							{
-							   console.log("no, before 7");
-							   error = "This movie is available at 07:00 PM";
-							}else if(bt > es)
-							{
-							   console.log("no, after 7");
-							   error = "This movie is not available after 07:00 PM";
-							}  
-						  
+						});
 					}else{
 						  console.log('success');
 					}
@@ -405,8 +413,7 @@ app.post('/booking', (req, res) => {
 			}
 			else
 			{	
-				error = "Sorry, Your booking date must be within coming 7days. Please enter your booking date";
-				/*return res.json({
+				return res.json({
 					"fulfillmentText": "Movie date",			
 					"source": "facebook",
 					'payload': {
@@ -414,7 +421,7 @@ app.post('/booking', (req, res) => {
 							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
 						}
 					}
-				}); */
+				}); 
 		    } 
 		}	
 		
@@ -471,8 +478,8 @@ app.post('/booking', (req, res) => {
 						"template_type": "generic",
 						"elements": x
 						}
-					},
-					"text": error
+					}
+					
 				}
 			}		  
 		});
