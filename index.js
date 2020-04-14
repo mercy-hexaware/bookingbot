@@ -53,7 +53,8 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
-	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
+	}
+	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket'){
 		let dateArr = [], today, tomorrow, tomw, dayAfttomw, currentDate, day, month, year;
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
@@ -76,7 +77,7 @@ app.post('/booking', (req, res) => {
 			'payload': 
 				{
 				  "facebook": {
-					"text": "The following date are available for this event. Please select your date",
+					"text": "The following date are available for this movie. Please select your date",
 					"quick_replies": [
 						{
 							"content_type": "text",
@@ -98,7 +99,8 @@ app.post('/booking', (req, res) => {
 			}
 			
 		});
-	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
+	}
+	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-count'){
 		let bookingD, today, week;		
         console.log('booking_date',req.body.queryResult.parameters['booking_date']);
 		booking_date = req.body.queryResult.parameters['booking_date'];
@@ -126,7 +128,8 @@ app.post('/booking', (req, res) => {
 				});
 			}	
 		}
-	}else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count'){
+	}
+	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count'){
 		console.log('outputContexts',req.body.queryResult.outputContexts);	
 		let i, indexNo, moviedetails, subtotal, tax, bookingoutput, bookingDetails, j, indexJ;
 		confirm = "movie";       
@@ -328,6 +331,70 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
+	else if(req.body.queryResult.intent.displayName ==='direct_movie_booking'){
+		let i, indexNo, x=[];
+	    ticket_count = req.body.queryResult.parameters['ticket_count'];
+		booking_movie = req.body.queryResult.parameters['movie_name'];
+		booking_date = req.body.queryResult.parameters['booking_date'];
+		booking_time = req.body.queryResult.parameters['booking_time'];
+		location = req.body.queryResult.parameters['geo-city'].toLowerCase();		
+		console.log('movies[location]', movies[location]);
+		for (i in movies[location]) {
+			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
+			{
+				indexNo = i;
+				console.log('i',indexNo);	
+				x.push(					
+					{
+						"title": movies[location][indexNo].name,
+						"image_url": movies[location][indexNo].image,
+						"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][indexNo].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][indexNo].theatre,
+						"buttons": [
+							{
+								"type": "postback",
+								"title": movies[location][indexNo].name,
+								"payload": "booking movie ticket"
+							}
+						]
+					}					
+				);
+			}
+			else
+			{								
+				x.push(					
+					{
+						"title": movies[location][i].name,
+						"image_url": movies[location][i].image,
+						"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
+						"buttons": [
+							{
+								"type": "postback",
+								"title": movies[location][i].name,
+								"payload": "booking movie ticket"
+							}
+						]
+					}					
+				);
+	
+			}
+		}
+		console.log('x',x);
+		return res.json({
+			"fulfillmentText": "Now playing movies",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": x
+						}
+					}
+				}
+			}		  
+		});
+	}	
 	else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
 		let customDel, j,customerData,i, ticket_count, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ, details;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
