@@ -368,7 +368,14 @@ app.post('/booking', (req, res) => {
 			week = week.setDate(week.getDate() +7);
 			week = new Date(week);
 			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
-			{
+			{   
+				datas.length = 0;
+				datas.push ({						
+						booking_date : booking_date,
+						ticket_count : ticket_count,
+						booking_movie: booking_movie,
+						location : location
+				});
 				console.log('in date');
 				if(booking_time != " "){					
 					let splitD = booking_time.split('+');					
@@ -421,6 +428,7 @@ app.post('/booking', (req, res) => {
 							}
 						});
 					}else{
+					        datas.length = 0;
 						    payment = true;
 						    console.log('success');
 						    datas.push ({
@@ -440,6 +448,37 @@ app.post('/booking', (req, res) => {
 					}
  
 				}
+				else{
+					return res.json({
+						"fulfillmentText": "Movie date",			
+						"source": "facebook",
+						'payload': 
+							{
+							  "facebook": {
+									"text": "The following date are available for this movie. Please select your show time",
+									"quick_replies": 
+									[
+										{
+											"content_type": "text",
+											"title": '07:00 AM',
+											"payload": "show time"							
+										},
+										{
+											"content_type": "text",
+											"title": '01:00 PM',
+											"payload": "show time"
+										},
+										{
+											"content_type": "text",
+											"title": '07:00 PM',
+											"payload": "show time"
+										}
+									]
+								}
+							}
+						
+					}); 
+				}
 			}
 			else
 			{	
@@ -453,6 +492,12 @@ app.post('/booking', (req, res) => {
 					}
 				}); 
 		    } 
+		}else{
+			 datas.push ({				
+				ticket_count : ticket_count,
+				booking_movie: booking_movie,
+				location : location
+			});
 		}		
 		for (i in movies[location]) {
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
@@ -512,7 +557,159 @@ app.post('/booking', (req, res) => {
 				}
 			}		  
 		});
-	}	
+	}
+	else if(req.body.queryResult.intent.displayName === 'direct_movie_booking - details'){
+		let i, z, indexNo, x=[], bookingD, today, week, error, payment= false;
+		booking_time = req.body.queryResult.parameters['booking_time'];
+		booking_date == "" ? req.body.queryResult.parameters['booking_date'] : booking_date;		
+		if(booking_date != ""){
+			bookingD = new Date(booking_date);			
+			today = new Date();
+			week = new Date(today);
+			week = week.setDate(week.getDate() +7);
+			week = new Date(week);
+			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
+			{   				
+				console.log('in date');
+				if(booking_time != " "){					
+					let splitD = booking_time.split('+');					
+					let newDate = new Date(splitD[0]);
+					booking_time = newDate.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
+				 	if(booking_time != "07:00 AM" && booking_time != "01:00 PM" && booking_time != "07:00 PM")
+					{  
+						let dTime = new Date(splitD[0]);  
+						let h = addZero(dTime.getHours());
+						let m = addZero(dTime.getMinutes());
+						let s = addZero(dTime.getSeconds());  
+						console.log(h + ":" + m + ":" + s);
+						let currentD = new Date(booking_date);
+						let jj = new Date(booking_date);
+						let iu = new Date(booking_date); 
+						let cv = new Date(booking_date);
+						let bt = cv.setHours(h,m,s);
+						console.log(bt);
+						let zero = parseInt('00', 8);
+						let es = iu.setHours(19,zero,0); console.log(es);
+						let f  = jj.setHours(13,zero,0); console.log(f);
+						let ms  = currentD.setHours(7,zero,0); console.log(ms);
+						console.log("happy hour?")
+						if(bt < ms)
+						{
+						   console.log("before 7!");
+						   error = "This movie is available at 07:00 AM. Can you change your booking time?";
+						}    
+						else if(ms < bt && bt < f)
+						{
+						   console.log("no, before 1");
+						   error = "This movie is available at 01:00 PM. Can you change your booking time?";
+						}
+						else if(f < bt  && bt < es)
+						{
+						   console.log("no, before 7");
+						   error = "This movie is available at 07:00 PM. Can you change your booking time?";
+						}else if(bt > es)
+						{
+						   console.log("no, after 7");
+						   error = "This movie is not available after 07:00 PM. Can you change your booking time?";
+						}  
+						return res.json({
+							"fulfillmentText": "Movie date",			
+							"source": "facebook",
+							'payload': {
+								"facebook": {
+									"text": error
+								}
+							}
+						});
+					}
+					else{					       
+						    payment = true;
+						    console.log('success');
+						    datas[0].booking_time = booking_time;
+							datas[0].booking_date = booking_date;
+							for (i in movies[location]) {
+							if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
+							{					
+								indexNo = i;
+								console.log('i',indexNo);
+								x.length = 0;
+								x.push(					
+									{
+										"title": movies[location][indexNo].name,
+										"image_url": movies[location][indexNo].image,
+										"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][indexNo].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][indexNo].theatre,
+										"buttons": [
+											{
+												"type": "postback",
+												"title": movies[location][indexNo].name,
+												"payload": "selected movie"
+											}
+										]
+									}					
+								);
+								break;
+							}
+							else
+							{								
+								x.push(					
+									{
+										"title": movies[location][i].name,
+										"image_url": movies[location][i].image,
+										"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
+										"buttons": [
+											{
+												"type": "postback",
+												"title": movies[location][i].name,
+												"payload": "selected movie"
+											}
+										]
+									}					
+								);
+					
+							}
+						}
+						console.log('x',x);
+						return res.json({
+							"fulfillmentText": "Now playing movies",			
+							"source": "facebook",
+							'payload': {		
+								"facebook": {
+									"attachment": {
+									"type": "template",
+									"payload": {
+										"template_type": "generic",
+										"elements": x
+										}
+									}
+									
+								}
+							}		  
+						});	
+					}
+						 
+					function addZero(z) {
+						if (z < 10) {
+							z = "0" + z;
+						}
+						    return z;
+					}
+ 
+				}				
+			}
+			else
+			{	
+				return res.json({
+					"fulfillmentText": "Movie date",			
+					"source": "facebook",
+					'payload': {
+						"facebook": {
+							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
+						}
+					}
+				}); 
+		    } 
+		}
+	}
 	else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
 		let customDel, j,customerData,i, ticket_count, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ, details;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
