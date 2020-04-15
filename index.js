@@ -374,6 +374,7 @@ app.post('/booking', (req, res) => {
 						booking_date : booking_date,
 						ticket_count : ticket_count,
 						booking_movie: booking_movie,
+						booking_time:'',
 						location : location
 				});
 				console.log('in date');
@@ -496,7 +497,9 @@ app.post('/booking', (req, res) => {
 			 datas.push ({				
 				ticket_count : ticket_count,
 				booking_movie: booking_movie,
-				location : location
+				location : location,
+				booking_time:'',
+				booking_date:''
 			});
 		}		
 		for (i in movies[location]) {
