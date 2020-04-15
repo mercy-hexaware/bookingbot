@@ -900,6 +900,7 @@ app.post('/booking', (req, res) => {
 	    let i ,bkdata=[];
 		for (i in bookindDatas) {
 				if(bookindDatas[i].userName.toLowerCase().search(userName) != -1){
+				    console.log('bookindDatas[i].booking_movie',bookindDatas[i].booking_movie);
 					bkdata.push(					
 						{
 							"title": bookindDatas[i].booking_movie,
@@ -909,6 +910,7 @@ app.post('/booking', (req, res) => {
 					);					
 				}
 			}
+		console.log('bkdata',bkdata);
 		return res.json({
 			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
