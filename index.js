@@ -139,6 +139,7 @@ app.post('/booking', (req, res) => {
 		    ticket_count = datas.ticket_count;
 			booking_movie = datas.booking_movie;
 			location = datas.location;
+			console.log('location',location);
 		}
 		else{
 			console.log('outputContexts',req.body.queryResult.outputContexts);	
@@ -477,6 +478,9 @@ app.post('/booking', (req, res) => {
 			}
 			else
 			{	
+				datas['ticket_count'] = ticket_count;
+				datas['booking_movie'] = booking_movie;
+				datas['location'] = location;
 				return res.json({
 					"fulfillmentText": "Movie date",			
 					"source": "facebook",
@@ -487,9 +491,7 @@ app.post('/booking', (req, res) => {
 					}
 				}); 
 		    } 
-		}else{
-			datas['booking_time'] = '';
-			datas['booking_date'] = '';
+		}else{			
 			datas['ticket_count'] = ticket_count;
 			datas['booking_movie'] = booking_movie;
 			datas['location'] = location;
