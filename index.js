@@ -137,7 +137,7 @@ app.post('/booking', (req, res) => {
 			booking_time = datas.booking_time;
 			booking_date = datas.booking_date;
 		    ticket_count = datas.ticket_count;
-			booking_movie = datas.booking_movie;
+			booking_movie = datas.booking_movie.toLowerCase();
 			location = datas.location;
 			console.log('location',location);
 		}
