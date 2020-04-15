@@ -11,11 +11,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false;
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, bookindDatas = [];
 app.post('/booking', (req, res) => {
 	console.log('webhook');
-    console.log(req.body);	
-	if(req.body.queryResult.intent.displayName === 'movies'){
+    console.log(req.body);
+	if(req.body.queryResult.intent.displayName === 'Default Welcome Intent - name'){
+		userName = req.body.queryResult.parameters['given-name'].toLowerCase();
+	}
+	else if(req.body.queryResult.intent.displayName === 'movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
 		datas['location'] = location;
@@ -240,6 +243,7 @@ app.post('/booking', (req, res) => {
 		}
 		let bookDay = year+'-' + month + '-'+dt;
 		console.log(year+'-' + month + '-'+dt);
+		
 		return res.json({
 			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
@@ -846,6 +850,15 @@ app.post('/booking', (req, res) => {
 		let bookDay = year+'-' + month + '-'+dt;
 		console.log(year+'-' + month + '-'+dt);
 		confirm = "";
+		bookindDatas.push({
+			'userName': userName,
+			'movieName': booking_movie,			
+			'movieImage': moviedetails["image"],
+			'paymentAmount': total_cost,
+			'mobileNo': phone_number,
+			'bookingDate': bookDay,
+			'bookingTime': booking_time			
+		});
 		return res.json({
 			"fulfillmentText": "Movie Ticket",			
 			"source": "facebook",
