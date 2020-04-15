@@ -561,7 +561,8 @@ app.post('/booking', (req, res) => {
 	else if(req.body.queryResult.intent.displayName === 'direct_movie_booking - details'){
 		let i, z, indexNo, x=[], bookingD, today, week, error, payment= false;
 		booking_time = req.body.queryResult.parameters['booking_time'];
-		booking_date == req.body.queryResult.parameters['booking_date'] ? req.body.queryResult.parameters['booking_date'] : booking_date;		
+		booking_date = req.body.queryResult.parameters['booking_date'] ? req.body.queryResult.parameters['booking_date'] : booking_date; 
+		console.log('booking_date',booking_date);
 		if(booking_date != ""){
 			bookingD = new Date(booking_date);			
 			today = new Date();
