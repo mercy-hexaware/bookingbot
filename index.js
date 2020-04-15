@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas = [];
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''};
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);	
@@ -134,11 +134,11 @@ app.post('/booking', (req, res) => {
 		confirm = "movie"; 
         if(req.body.queryResult.intent.displayName === 'direct_movie_booking - moviedetails')
 		{
-			booking_time = datas[0].booking_time;
-			booking_date = datas[0].booking_date;
-		    ticket_count = datas[0].ticket_count;
-			booking_movie = datas[0].booking_movie;
-			location = datas[0].location;
+			booking_time = datas.booking_time;
+			booking_date = datas.booking_date;
+		    ticket_count = datas.ticket_count;
+			booking_movie = datas.booking_movie;
+			location = datas.location;
 		}
 		else{
 			console.log('outputContexts',req.body.queryResult.outputContexts);	
@@ -421,16 +421,13 @@ app.post('/booking', (req, res) => {
 							}
 						});
 					}else{
-					        datas.length = 0;
-						    payment = true;
-						    console.log('success');
-						    datas.push ({
-								booking_time : booking_time,
-								booking_date : booking_date,
-								ticket_count : ticket_count,
-								booking_movie: booking_movie,
-								location : location
-							});
+						payment = true;
+						console.log('success');
+						datas['booking_time'] = booking_time;
+						datas['booking_date'] = booking_date;
+						datas['ticket_count'] = ticket_count;
+						datas['booking_movie'] = booking_movie;
+						datas['location'] = location;							
 					}
 						 
 					function addZero(z) {
@@ -441,15 +438,12 @@ app.post('/booking', (req, res) => {
 					}
  
 				}
-				else{
-					datas.length = 0;
-					datas.push ({						
-						booking_date : booking_date,
-						ticket_count : ticket_count,
-						booking_movie: booking_movie,
-						booking_time :'',
-						location : location
-					});
+				else{				
+						datas['booking_time'] = '';
+						datas['booking_date'] = booking_date;
+						datas['ticket_count'] = ticket_count;
+						datas['booking_movie'] = booking_movie;
+						datas['location'] = location;				
 					return res.json({
 						"fulfillmentText": "Movie date",			
 						"source": "facebook",
@@ -494,13 +488,11 @@ app.post('/booking', (req, res) => {
 				}); 
 		    } 
 		}else{
-			 datas.push ({				
-				ticket_count : ticket_count,
-				booking_movie: booking_movie,
-				location : location,
-				booking_time :'',
-				booking_date :''
-			});
+			datas['booking_time'] = '';
+			datas['booking_date'] = '';
+			datas['ticket_count'] = ticket_count;
+			datas['booking_movie'] = booking_movie;
+			datas['location'] = location;
 		}		
 		for (i in movies[location]) {
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
@@ -630,8 +622,8 @@ app.post('/booking', (req, res) => {
 						    payment = true;
 						    console.log('success');
 							console.log('datas',datas[0]);
-						    datas.booking_time = booking_time;
-							datas.booking_date = booking_date;
+						    datas['booking_time'] = booking_time;
+							datas['booking_date'] = booking_date;
 							console.log('datas',datas[0]);
 							for (i in movies[location]) {
 							if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
