@@ -15,28 +15,46 @@ let location, booking_movie, ticket_count, booking_date, booking_time, event_nam
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);	
-	if(req.body.queryResult.intent.displayName === 'movies'){
+	if(req.body.queryResult.intent.displayName === 'movies' || req.body.queryResult.intent.displayName === 'movies-see-other-movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
 		datas['location'] = location;
 		if(location === "bangalore"){location = "bengaluru"}
 		console.log('location',location);
+		console.log('booking_movie',datas['booking_movie']);
 		console.log('movies[location]', movies[location]);
-			for (i in movies[location]) {				
-				x.push(					
-					{
-						"title": movies[location][i].name,
-						"image_url": movies[location][i].image,
-						"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
-						"buttons": [
-							{
-								"type": "postback",
-								"title": movies[location][i].name,
-								"payload": "booking movie ticket"
-							}
-						]
-					}					
-				);
+			for (i in movies[location]) {
+				if(datas['booking_movie'] !="" && movies[location][i].name.toLowerCase().search(datas['booking_movie'])== -1){
+					x.push(					
+						{
+							"title": movies[location][i].name,
+							"image_url": movies[location][i].image,
+							"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
+							"buttons": [
+								{
+									"type": "postback",
+									"title": movies[location][i].name,
+									"payload": "booking movie ticket"
+								}
+							]
+						}					
+					);
+				}else{
+					x.push(					
+						{
+							"title": movies[location][i].name,
+							"image_url": movies[location][i].image,
+							"subtitle": "Actor: "+ movies[location][i].actor +"\n Rating: "+ movies[location][i].rating +"/5 \n Language: "+ movies[location][i].language +"\n Price: "+ movies[location][i].price +"\n Theatre: "+ movies[location][i].theatre,
+							"buttons": [
+								{
+									"type": "postback",
+									"title": movies[location][i].name,
+									"payload": "booking movie ticket"
+								}
+							]
+						}					
+					);
+				}
 			}
 		console.log('x',x);
 		return res.json({
@@ -223,8 +241,8 @@ app.post('/booking', (req, res) => {
 										},
 										{
 											"type": "postback",
-											"title": 'See other movies',
-											"payload": "Hi"
+											"title": "See other movies",
+											"payload": "See other movies"
 										},
 										{
 											"type": "postback",
@@ -900,8 +918,7 @@ function timeCal (booking_time, booking_date){
 		}
 		else{					       
 			payment = true;
-			console.log('success');
-			console.log('datas',datas[0]);
+			console.log('success');			
 			datas['booking_time'] = booking_time;				
 		}
 			 
