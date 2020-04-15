@@ -6,13 +6,13 @@ const request = require('request');
 const movies = require('./movie');
 const events = require('./event');
 const app = express();
+const db = require('./cusData');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName;
-const bookindDatas = [];
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);
@@ -851,7 +851,7 @@ app.post('/booking', (req, res) => {
 		let bookDay = year+'-' + month + '-'+dt;
 		console.log(year+'-' + month + '-'+dt);
 		confirm = "";
-		bookindDatas.push({
+		const bookingDatas ={
 			userName: userName,
 			movieName: booking_movie,			
 			movieImage: moviedetails["image"],
@@ -859,8 +859,10 @@ app.post('/booking', (req, res) => {
 			mobileNo: phone_number,
 			bookingDate: bookDay,
 			bookingTime: booking_time			
-		});
-		console.log('bookindDatas',bookindDatas);
+		};
+		db.push(bookingDatas);
+		console.log('db',db);
+		console.log('bookingDatas',bookingDatas);
 		return res.json({
 			"fulfillmentText": "Movie Ticket",			
 			"source": "facebook",
@@ -898,15 +900,15 @@ app.post('/booking', (req, res) => {
 	}
 	else if(req.body.queryResult.intent.displayName === 'previous_booking_details'){
 	    let i ,bkdata=[];
-		console.log('bookindDatas',bookindDatas)
-		for (i in bookindDatas) {
-				if(bookindDatas[i].userName.toLowerCase().search(userName) != -1){
-				    console.log('bookindDatas[i].booking_movie',bookindDatas[i].booking_movie);
+		console.log('db',db)
+		for (i in db) {
+				if(db[i].userName.toLowerCase().search(userName) != -1){
+				    console.log('db[i].movieName',db[i].movieName);
 					bkdata.push(					
 						{
-							"title": bookindDatas[i].booking_movie,
-							"image_url": bookindDatas[i].movieImage,
-							"subtitle": "Amount: "+ bookindDatas[i].paymentAmount +"\n Booking Date: "+ bookindDatas[i].bookingDate +"\n Booking Time: "+ bookindDatas[i].bookingTime,							
+							"title": db[i].movieName,
+							"image_url": db[i].movieImage,
+							"subtitle": "Amount: "+ db[i].paymentAmount +"\n Booking Date: "+ db[i].bookingDate +"\n Booking Time: "+ db[i].bookingTime,							
 						}					
 					);					
 				}
