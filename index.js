@@ -17,7 +17,7 @@ app.post('/booking', (req, res) => {
     console.log(req.body);	
 	if(req.body.queryResult.intent.displayName === 'movies' || req.body.queryResult.intent.displayName === 'movies-see-other-movies'){
 		let  x=[], i;
-		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
+		location = req.body.queryResult.parameters['geo-city']? req.body.queryResult.parameters['geo-city'].toLowerCase():datas['location'] ;
 		datas['location'] = location;
 		if(location === "bangalore"){location = "bengaluru"}
 		console.log('location',location);
