@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, eventdatas= { 'event_name' :'','event_date' : '','ticket_count' :'','location' : ''};
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, eventdatas= { 'event_name' :'','event_date' : '','ticket_count' :'','location' : ''},booking;
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);
@@ -880,11 +880,11 @@ app.post('/booking', (req, res) => {
 			booking_time = datas.booking_time;
 			booking_date = datas.booking_date;
 		    ticket_count = datas.ticket_count;
-			booking_movie = datas.booking_movie.toLowerCase();
+			booking = datas.booking_movie.toLowerCase();
 			location = datas.location;			
 			console.log('booking_date',booking_date);
 			for (i in movies[location]) {
-				if(movies[location][i].name.toLowerCase().search(booking_movie)!= -1){
+				if(movies[location][i].name.toLowerCase().search(booking)!= -1){
 					indexNo = i;
 					console.log('i',indexNo);					
 				}
@@ -908,6 +908,7 @@ app.post('/booking', (req, res) => {
 			moviedetails = events[location][indexNo];		
 			subtotal = ticket_count * eval(moviedetails["price"]);
 			details = moviedetails['venue'];
+			booking = event_name;
 		}		
 		let tax = eval(subtotal) * eval(0.06);		
 		let taxvalue = fmtPrice(tax);
@@ -930,7 +931,7 @@ app.post('/booking', (req, res) => {
 		confirm = "";
 		const bookingDatas ={
 			userName: userName,
-			movieName: booking_movie,			
+			movieName: booking,			
 			movieImage: moviedetails["image"],
 			paymentAmount: total_cost,
 			mobileNo: phone_number,
