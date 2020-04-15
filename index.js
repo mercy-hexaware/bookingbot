@@ -368,15 +368,7 @@ app.post('/booking', (req, res) => {
 			week = week.setDate(week.getDate() +7);
 			week = new Date(week);
 			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
-			{   
-				datas.length = 0;
-				datas.push ({						
-						booking_date : booking_date,
-						ticket_count : ticket_count,
-						booking_movie: booking_movie,
-						booking_time:'',
-						location : location
-				});
+			{   				
 				console.log('in date');
 				if(booking_time != " "){					
 					let splitD = booking_time.split('+');					
@@ -450,6 +442,14 @@ app.post('/booking', (req, res) => {
  
 				}
 				else{
+					datas.length = 0;
+					datas.push ({						
+						booking_date : booking_date,
+						ticket_count : ticket_count,
+						booking_movie: booking_movie,
+						booking_time :'',
+						location : location
+					});
 					return res.json({
 						"fulfillmentText": "Movie date",			
 						"source": "facebook",
@@ -498,8 +498,8 @@ app.post('/booking', (req, res) => {
 				ticket_count : ticket_count,
 				booking_movie: booking_movie,
 				location : location,
-				booking_time:'',
-				booking_date:''
+				booking_time :'',
+				booking_date :''
 			});
 		}		
 		for (i in movies[location]) {
@@ -629,8 +629,9 @@ app.post('/booking', (req, res) => {
 					else{					       
 						    payment = true;
 						    console.log('success');
-						    datas[0].booking_time = booking_time;
-							datas[0].booking_date = booking_date;
+							console.log('datas',datas);
+						    datas.booking_time = booking_time;
+							datas.booking_date = booking_date;
 							for (i in movies[location]) {
 							if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
 							{					
