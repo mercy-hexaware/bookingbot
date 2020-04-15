@@ -18,6 +18,7 @@ app.post('/booking', (req, res) => {
 	if(req.body.queryResult.intent.displayName === 'movies'){
 		let  x=[], i;
 		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
+		datas['location'] = location;
 		if(location === "bangalore"){location = "bengaluru"}
 		console.log('location',location);
 		console.log('movies[location]', movies[location]);
@@ -58,6 +59,7 @@ app.post('/booking', (req, res) => {
 		let dateArr = [], today, tomorrow, tomw, dayAfttomw, currentDate, day, month, year;
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
+		datas['booking_movie'] = booking_movie;
 		today = new Date(); dateCal(today);
 		tomorrow = new Date(today);
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
@@ -115,6 +117,7 @@ app.post('/booking', (req, res) => {
 			week = new Date(week);
 			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
 				console.log('in date');
+				datas['booking_date'] = booking_date;
 			else{
 				booking_date = " ";
 				return res.json({
@@ -152,7 +155,9 @@ app.post('/booking', (req, res) => {
 			}
 			bookingDetails = req.body.queryResult.outputContexts[indexJ];
 			ticket_count = bookingDetails.parameters['ticket_count'];
+			datas['ticket_count'] = ticket_count;
 			booking_time = bookingDetails.parameters['booking_time.original'];
+			datas['booking_time'] = booking_time;
 			console.log('booking_time',booking_time);
 		}
 		for (i in movies[location]) {
