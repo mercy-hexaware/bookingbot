@@ -156,7 +156,9 @@ app.post('/booking', (req, res) => {
 			console.log('booking_time',booking_time);
 		}
 		for (i in movies[location]) {
-			if(movies[location][i].name.toLowerCase() == booking_movie){
+			console.log('booking_movie',booking_movie);
+			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
+			{
 				indexNo = i;
 				console.log('i',indexNo);				
 			}
