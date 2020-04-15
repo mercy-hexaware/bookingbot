@@ -896,7 +896,37 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
-function timeCal (booking_time, booking_date){ 
+	else if(req.body.queryResult.intent.displayName === 'previous_booking_details'){
+	    let i ,bkdata=[];
+		for (i in bookindDatas) {
+				if(bookindDatas[i].userName.toLowerCase().search(userName) != -1){
+					bkdata.push(					
+						{
+							"title": bookindDatas[i].booking_movie,
+							"image_url": bookindDatas[i].movieImage,
+							"subtitle": "Amount: "+ bookindDatas[i].paymentAmount +"\n Booking Date: "+ bookindDatas[i].bookingDate +"\n Booking Time: "+ bookindDatas[i].bookingTime,							
+						}					
+					);					
+				}
+			}
+		return res.json({
+			"fulfillmentText": "Now playing movies",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": bkdata
+						}
+					}
+				}
+			}		  
+		});
+	}
+	
+	function timeCal (booking_time, booking_date){ 
 	let error;
 	console.log('in timeCal');
 	console.log('in timeCal',booking_time);
