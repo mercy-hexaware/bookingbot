@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName;
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, eventdatas= { 'event_name' :'','event_date' : '','ticket_count' :'','location' : ''};
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);
@@ -325,10 +325,12 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
-	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket'){
-		let i;
+	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket' || req.body.queryResult.intent.displayName === 'direct_event-booking-details - date'){
+		let i,payLd;
+		payLd = req.body.queryResult.intent.displayName === 'events - booking-ticket' ? "event booking date":"direct confirmation date";
 		console.log('data', req.body.originalDetectIntentRequest.payload.data.postback['title']);
 		event_name = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
+		eventdatas['event_name'] = event_name;
 		for (i in events[location]) {
 			if(events[location][i].name.toLowerCase().search(event_name) != -1){
 				event_no = i;
@@ -346,17 +348,17 @@ app.post('/booking', (req, res) => {
 						{
 							"content_type": "text",
 							"title": events[location][event_no].date[0],
-							"payload": "event booking date"							
+							"payload": payLd						
 						},
 						{
 							"content_type": "text",
 							"title": events[location][event_no].date[1],
-							"payload": "event booking date"
+							"payload": payLd
 						},
 						{
 							"content_type": "text",
 							"title": events[location][event_no].date[2],
-							"payload": "event booking date"
+							"payload": payLd
 						}
 					]
 				}
@@ -367,16 +369,25 @@ app.post('/booking', (req, res) => {
 	else if(req.body.queryResult.intent.displayName ==="events - booking-ticket - custom"){
 		console.log('booking date',req.body.originalDetectIntentRequest.payload.data.message['text']);
 	    event_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
+		eventdatas['event_date'] = event_date;
 	}
-	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count'){
+	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count' || req.body.queryResult.intent.displayName === 'direct_event-booking-details -confirmation'){
 		let i, eventdetails, subtotal, tax;
 		confirm = "event";
-        console.log('event_count',req.body.queryResult.parameters['ticket_count']);
-		event_count = req.body.queryResult.parameters['ticket_count'];	    
+        if(req.body.queryResult.intent.displayName === 'events - booking-ticket -count'){
+			console.log('ticket_count',req.body.queryResult.parameters['ticket_count']);
+			ticket_count = req.body.queryResult.parameters['ticket_count'];
+			eventdatas['ticket_count'] = ticket_count;
+		}else{
+			console.log('booking date',req.body.originalDetectIntentRequest.payload.data.message['text']);
+	        event_date = req.body.originalDetectIntentRequest.payload.data.message['text'];	
+			eventdatas['event_date'] = event_date;
+			ticket_count = eventdatas['ticket_count'];
+		}
 		console.log('event_no',event_no);
 		console.log('eventdetails',events[location][event_no]);
 		eventdetails = events[location][event_no];		
-		subtotal = event_count * eval(eventdetails["price"]);
+		subtotal = ticket_count * eval(eventdetails["price"]);
 		tax = eval(subtotal) * eval(0.06);		
 		let taxvalue = fmtPrice(tax);
 		console.log('taxvalue',taxvalue);
@@ -554,7 +565,8 @@ app.post('/booking', (req, res) => {
 					}
 				}); 
 		    } 
-		}else{			
+		}
+		else{			
 			datas['ticket_count'] = ticket_count;
 			datas['booking_movie'] = booking_movie;
 			datas['location'] = location;
@@ -782,6 +794,72 @@ app.post('/booking', (req, res) => {
 		    } 
 		}
 	}
+	else if(req.body.queryResult.intent.displayName === 'direct_event-booking-details'){
+		location = req.body.queryResult.parameters['geo-city'].toLowerCase();
+		ticket_count = req.body.queryResult.parameters['ticket_count'];
+		event_name = req.body.queryResult.parameters['event_name'].toLowerCase();
+		let  x=[], i, info;		
+		if(location === "bangalore"){location = "bengaluru"}
+		eventdatas['location'] = location;
+		eventdatas['ticket_count'] = ticket_count;
+		console.log('location',location);
+		console.log('events[location]', events[location]);
+			for (i in movies[location]) {
+				if(event_name !="" && events[location][i].name.toLowerCase().search(events)!= -1)
+				{	eventdatas['event_name'] = location;			
+					indexNo = i;					
+					info = events[location][i].event === 0 ? "18+ event" : "";
+					x.length = 0;
+					x.push(									
+						{
+							"title": events[location][i].name,
+							"image_url": events[location][i].image,
+							"subtitle": info +" \n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
+							"buttons": [
+								{
+									"type": "postback",
+									"title": events[location][i].name,
+									"payload": "direct event booking"
+								}
+							]
+						}					
+					);
+					break;
+				}
+				else{
+					x.push(									
+						{
+							"title": events[location][i].name,
+							"image_url": events[location][i].image,
+							"subtitle": info +" \n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
+							"buttons": [
+								{
+									"type": "postback",
+									"title": events[location][i].name,
+									"payload": "direct event booking"
+								}
+							]
+						}					
+					);
+				}
+			}
+		console.log('x',x);
+		return res.json({
+			"fulfillmentText": "Events",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": x
+						}
+					}
+				}
+			}		  
+		})
+	}
 	else if(req.body.queryResult.intent.displayName === 'Payment_card-number-mobno-otp'){
 		let customDel, j,customerData,i, ticket_count, booking_time, payment_card, card_number,phone_number,given_name,moviedetails, subtotal, total_cost,indexNo, indexJ, details;
 		console.log('outputContexts',req.body.queryResult.outputContexts);
@@ -861,8 +939,7 @@ app.post('/booking', (req, res) => {
 			bookingTime: booking_time			
 		};
 		db.push(bookingDatas);
-		console.log('db',db);
-		console.log('bookingDatas',bookingDatas);
+		console.log('db',db);		
 		return res.json({
 			"fulfillmentText": "Movie Ticket",			
 			"source": "facebook",
@@ -898,6 +975,7 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
+	
 	else if(req.body.queryResult.intent.displayName === 'previous_booking_details'){
 	    let i ,bkdata=[];
 		console.log('db',db)
