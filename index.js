@@ -839,7 +839,8 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
-function timeCal (booking_time, booking_date){    
+function timeCal (booking_time, booking_date){ 
+	console.log('in timeCal');
 	if(booking_time != " " && booking_date != ""){					
 		let splitD = booking_time.split('+');					
 		let newDate = new Date(splitD[0]);
