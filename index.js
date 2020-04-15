@@ -71,7 +71,7 @@ app.post('/booking', (req, res) => {
 			year = currentDate.getFullYear();
 			day = day < 10 ? "0"+day : day;
             month = month < 10 ? "0"+month : month ;
-			dateArr.push(day + "-" + month + "-" + year);
+			dateArr.push(month + "-" + day + "-" + year);
 		}
 		return res.json({
 			"fulfillmentText": "Movie date",			
@@ -843,6 +843,7 @@ app.post('/booking', (req, res) => {
 		});
 	}
 function timeCal (booking_time, booking_date){ 
+	let error;
 	console.log('in timeCal');
 	console.log('in timeCal',booking_time);
 	console.log('in timeCal',booking_date);
