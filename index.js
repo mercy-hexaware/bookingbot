@@ -806,8 +806,7 @@ app.post('/booking', (req, res) => {
 		console.log('events[location]', events[location]);
 			for (i in movies[location]) {
 				if(event_name !="" && events[location][i].name.toLowerCase().search(events)!= -1)
-				{	eventdatas['event_name'] = location;			
-					indexNo = i;					
+				{	eventdatas['event_name'] = location;									
 					info = events[location][i].event === 0 ? "18+ event" : "";
 					x.length = 0;
 					x.push(									
