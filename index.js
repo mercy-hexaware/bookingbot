@@ -852,13 +852,13 @@ app.post('/booking', (req, res) => {
 		console.log(year+'-' + month + '-'+dt);
 		confirm = "";
 		bookindDatas.push({
-			'userName': userName,
-			'movieName': booking_movie,			
-			'movieImage': moviedetails["image"],
-			'paymentAmount': total_cost,
-			'mobileNo': phone_number,
-			'bookingDate': bookDay,
-			'bookingTime': booking_time			
+			userName: userName,
+			movieName: booking_movie,			
+			movieImage: moviedetails["image"],
+			paymentAmount: total_cost,
+			mobileNo: phone_number,
+			bookingDate: bookDay,
+			bookingTime: booking_time			
 		});
 		console.log('bookindDatas',bookindDatas);
 		return res.json({
@@ -898,6 +898,7 @@ app.post('/booking', (req, res) => {
 	}
 	else if(req.body.queryResult.intent.displayName === 'previous_booking_details'){
 	    let i ,bkdata=[];
+		console.log('bookindDatas',bookindDatas)
 		for (i in bookindDatas) {
 				if(bookindDatas[i].userName.toLowerCase().search(userName) != -1){
 				    console.log('bookindDatas[i].booking_movie',bookindDatas[i].booking_movie);
