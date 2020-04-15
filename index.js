@@ -109,6 +109,7 @@ app.post('/booking', (req, res) => {
 		if(booking_date == ""){
 			console.log('outputContexts',req.body.originalDetectIntentRequest.payload.data.message['text']);
 			booking_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
+			datas['booking_date'] = booking_date;
 		}else{			
 			bookingD = new Date(booking_date);			
 			today = new Date();
@@ -117,7 +118,7 @@ app.post('/booking', (req, res) => {
 			week = new Date(week);
 			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) ){
 				console.log('in date');
-				datas['booking_date'] = booking_date;
+				datas['booking_date'] = booking_date;				
 			}
 			else{
 				booking_date = " ";
