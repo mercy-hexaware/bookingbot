@@ -804,16 +804,16 @@ app.post('/booking', (req, res) => {
 		eventdatas['ticket_count'] = ticket_count;
 		console.log('location',location);
 		console.log('events[location]', events[location]);
-			for (i in movies[location]) {
-				if(event_name !="" && events[location][i].name.toLowerCase().search(events)!= -1)
-				{	eventdatas['event_name'] = location;									
+			for (i in events[location]) {
+				if(event_name !="" && events[location][i].name.toLowerCase().search(event_name)!= -1)
+				{	eventdatas['event_name'] = event_name;									
 					info = events[location][i].event === 0 ? "18+ event" : "";
 					x.length = 0;
 					x.push(									
 						{
 							"title": events[location][i].name,
 							"image_url": events[location][i].image,
-							"subtitle": info +" \n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
+							"subtitle": info +"\n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
 							"buttons": [
 								{
 									"type": "postback",
