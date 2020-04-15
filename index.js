@@ -629,9 +629,10 @@ app.post('/booking', (req, res) => {
 					else{					       
 						    payment = true;
 						    console.log('success');
-							console.log('datas',datas);
+							console.log('datas',datas[0]);
 						    datas.booking_time = booking_time;
 							datas.booking_date = booking_date;
+							console.log('datas',datas[0]);
 							for (i in movies[location]) {
 							if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
 							{					
