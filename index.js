@@ -133,6 +133,16 @@ app.post('/booking', (req, res) => {
 			}	
 		}
 	}
+	if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
+		booking_time = req.body.queryResult.parameters['booking_time'];
+		if(booking_date == ""){
+			console.log('outputContexts',req.body.originalDetectIntentRequest.payload.data.message['text']);
+			booking_time = req.body.originalDetectIntentRequest.payload.data.message['text'];
+			datas.booking_time = booking_time;
+		}else{
+			timeCal(booking_time,datas.booking_date);
+		}
+	}
 	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count' || req.body.queryResult.intent.displayName === 'direct_movie_booking - moviedetails'){
 		let i, indexNo, moviedetails, subtotal, tax, bookingoutput, bookingDetails, j, indexJ;
 		confirm = "movie"; 
@@ -156,13 +166,11 @@ app.post('/booking', (req, res) => {
 			}
 			bookingDetails = req.body.queryResult.outputContexts[indexJ];
 			ticket_count = bookingDetails.parameters['ticket_count'];
-			datas['ticket_count'] = ticket_count;
-			booking_time = bookingDetails.parameters['booking_time.original'];
-			timeCal(booking_time,datas.booking_date);			
+			datas['ticket_count'] = ticket_count;			
 			console.log('booking_time',datas.booking_time);
+			booking_time = datas.booking_time;
 		}
-		for (i in movies[location]) {
-			console.log('booking_movie',booking_movie);
+		for (i in movies[location]) {			
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
 			{
 				indexNo = i;
