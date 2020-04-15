@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm;
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas = [];
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);	
@@ -129,21 +129,31 @@ app.post('/booking', (req, res) => {
 			}	
 		}
 	}
-	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count'){
-		console.log('outputContexts',req.body.queryResult.outputContexts);	
+	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count' || req.body.queryResult.intent.displayName === 'direct_movie_booking - moviedetails'){
 		let i, indexNo, moviedetails, subtotal, tax, bookingoutput, bookingDetails, j, indexJ;
-		confirm = "movie";       
-		bookingoutput = req.body.queryResult.outputContexts;
-		for (j in bookingoutput) {
-			if(bookingoutput[j].lifespanCount){
-				indexJ = j;
-				console.log('j',indexJ);break;
-			}
+		confirm = "movie"; 
+        if(req.body.queryResult.intent.displayName === 'direct_movie_booking - moviedetails')
+		{
+			booking_time = datas[0].booking_time;
+			booking_date = datas[0].booking_date;
+		    ticket_count = datas[0].ticket_count;
+			booking_movie = datas[0].booking_movie;
+			location = datas[0].location;
 		}
-		bookingDetails = req.body.queryResult.outputContexts[indexJ];
-		ticket_count = bookingDetails.parameters['ticket_count'];
-		booking_time = bookingDetails.parameters['booking_time.original'];
-	    console.log('booking_time',booking_time);
+		else{
+			console.log('outputContexts',req.body.queryResult.outputContexts);	
+			bookingoutput = req.body.queryResult.outputContexts;
+			for (j in bookingoutput) {
+				if(bookingoutput[j].lifespanCount){
+					indexJ = j;
+					console.log('j',indexJ);break;
+				}
+			}
+			bookingDetails = req.body.queryResult.outputContexts[indexJ];
+			ticket_count = bookingDetails.parameters['ticket_count'];
+			booking_time = bookingDetails.parameters['booking_time.original'];
+			console.log('booking_time',booking_time);
+		}
 		for (i in movies[location]) {
 			if(movies[location][i].name.toLowerCase() == booking_movie){
 				indexNo = i;
@@ -159,6 +169,18 @@ app.post('/booking', (req, res) => {
 		let total_cost = eval(subtotal) + eval(taxvalue);
 		console.log('total_cost',total_cost);
 		total_cost = fmtPrice(total_cost);
+		let date = new Date(booking_date);
+		let year = date.getFullYear();
+		let month = date.getMonth()+1;
+		let dt = date.getDate();
+		if (dt < 10) {
+		  dt = '0' + dt;
+		}
+		if (month < 10) {
+		  month = '0' + month;
+		}
+		let bookDay = year+'-' + month + '-'+dt;
+		console.log(year+'-' + month + '-'+dt);
 		return res.json({
 			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
@@ -172,7 +194,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": moviedetails.name,
 									"image_url": moviedetails.image,
-									"subtitle": booking_time+", "+booking_date +", "+ moviedetails.theatre +" Total payment amount include tax Rs."+total_cost,
+									"subtitle": booking_time+", "+bookDay +", "+ moviedetails.theatre +" Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
@@ -332,7 +354,7 @@ app.post('/booking', (req, res) => {
 		});
 	}
 	else if(req.body.queryResult.intent.displayName ==='direct_movie_booking'){
-		let i, z, indexNo, x=[], bookingD, today, week, error;
+		let i, z, indexNo, x=[], bookingD, today, week, error, payment= false;
 	    ticket_count = req.body.queryResult.parameters['ticket_count'];
 		booking_movie = req.body.queryResult.parameters['movie_name'];
 		booking_date = req.body.queryResult.parameters['booking_date'];
@@ -399,7 +421,15 @@ app.post('/booking', (req, res) => {
 							}
 						});
 					}else{
-						  console.log('success');
+						    payment = true;
+						    console.log('success');
+						    datas.push ({
+								booking_time : booking_time,
+								booking_date : booking_date,
+								ticket_count : ticket_count,
+								booking_movie: booking_movie,
+								location : location
+							});
 					}
 						 
 					function addZero(z) {
@@ -423,11 +453,10 @@ app.post('/booking', (req, res) => {
 					}
 				}); 
 		    } 
-		}	
-		
+		}		
 		for (i in movies[location]) {
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
-			{
+			{					
 				indexNo = i;
 				console.log('i',indexNo);
 				x.length = 0;
@@ -440,7 +469,7 @@ app.post('/booking', (req, res) => {
 							{
 								"type": "postback",
 								"title": movies[location][indexNo].name,
-								"payload": "booking movie ticket"
+								"payload": "selected movie"
 							}
 						]
 					}					
@@ -458,7 +487,7 @@ app.post('/booking', (req, res) => {
 							{
 								"type": "postback",
 								"title": movies[location][i].name,
-								"payload": "booking movie ticket"
+								"payload": "selected movie"
 							}
 						]
 					}					
