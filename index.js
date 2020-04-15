@@ -158,8 +158,8 @@ app.post('/booking', (req, res) => {
 			ticket_count = bookingDetails.parameters['ticket_count'];
 			datas['ticket_count'] = ticket_count;
 			booking_time = bookingDetails.parameters['booking_time.original'];
-			datas['booking_time'] = booking_time;
-			console.log('booking_time',booking_time);
+			timeCal(booking_time,datas.booking_date);			
+			console.log('booking_time',datas.booking_time);
 		}
 		for (i in movies[location]) {
 			console.log('booking_movie',booking_movie);
@@ -831,6 +831,76 @@ app.post('/booking', (req, res) => {
 			}		  
 		});
 	}
+function timeCal (booking_time, booking_date){    
+	if(booking_time != " " && booking_date != ""){					
+		let splitD = booking_time.split('+');					
+		let newDate = new Date(splitD[0]);
+		booking_time = newDate.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
+		if(booking_time != "07:00 AM" && booking_time != "01:00 PM" && booking_time != "07:00 PM")
+		{  
+			let dTime = new Date(splitD[0]);  
+			let h = addZero(dTime.getHours());
+			let m = addZero(dTime.getMinutes());
+			let s = addZero(dTime.getSeconds());  
+			console.log(h + ":" + m + ":" + s);
+			let currentD = new Date(booking_date);
+			let jj = new Date(booking_date);
+			let iu = new Date(booking_date); 
+			let cv = new Date(booking_date);
+			let bt = cv.setHours(h,m,s);
+			console.log(bt);
+			let zero = parseInt('00', 8);
+			let es = iu.setHours(19,zero,0); console.log(es);
+			let f  = jj.setHours(13,zero,0); console.log(f);
+			let ms  = currentD.setHours(7,zero,0); console.log(ms);
+			console.log("happy hour?")
+			if(bt < ms)
+			{
+			   console.log("before 7!");
+			   error = "This movie is available at 07:00 AM. Can you change your booking time?";
+			}    
+			else if(ms < bt && bt < f)
+			{
+			   console.log("no, before 1");
+			   error = "This movie is available at 01:00 PM. Can you change your booking time?";
+			}
+			else if(f < bt  && bt < es)
+			{
+			   console.log("no, before 7");
+			   error = "This movie is available at 07:00 PM. Can you change your booking time?";
+			}else if(bt > es)
+			{
+			   console.log("no, after 7");
+			   error = "This movie is not available after 07:00 PM. Can you change your booking time?";
+			}  
+			return res.json({
+				"fulfillmentText": "Movie date",			
+				"source": "facebook",
+				'payload': {
+					"facebook": {
+						"text": error
+					}
+				}
+			});
+		}
+		else{					       
+			payment = true;
+			console.log('success');
+			console.log('datas',datas[0]);
+			datas['booking_time'] = booking_time;				
+		}
+			 
+		function addZero(z) {
+			if (z < 10) {
+				z = "0" + z;
+			}
+				return z;
+		}
+
+	}	
+}	
+	
+	
 function fmtPrice(tax)
  	{
 		let result=Math.floor(tax)+".";
