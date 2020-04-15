@@ -135,12 +135,14 @@ app.post('/booking', (req, res) => {
 	}
 	if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
 		booking_time = req.body.queryResult.parameters['booking_time'];
-		if(booking_date == ""){
+		if(booking_time == ""){
 			console.log('outputContexts',req.body.originalDetectIntentRequest.payload.data.message['text']);
 			booking_time = req.body.originalDetectIntentRequest.payload.data.message['text'];
 			datas.booking_time = booking_time;
 		}else{
-			timeCal(booking_time,datas.booking_date);
+			console.log('datas.booking_date',datas.booking_date);
+			booking_date = datas.booking_date;
+			timeCal(booking_time, booking_date);
 		}
 	}
 	else if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time - count' || req.body.queryResult.intent.displayName === 'direct_movie_booking - moviedetails'){
