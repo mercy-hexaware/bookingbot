@@ -486,7 +486,7 @@ app.post('/booking', (req, res) => {
 					"source": "facebook",
 					'payload': {
 						"facebook": {
-							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
+							"text": "Your booking date must be within coming 7days. Please enter your booking date"
 						}
 					}
 				}); 
@@ -495,6 +495,15 @@ app.post('/booking', (req, res) => {
 			datas['ticket_count'] = ticket_count;
 			datas['booking_movie'] = booking_movie;
 			datas['location'] = location;
+			return res.json({
+					"fulfillmentText": "Movie date",			
+					"source": "facebook",
+					'payload': {
+						"facebook": {
+							"text": "Your booking date must be within coming 7days. Please enter your booking date"
+						}
+					}
+				});
 		}		
 		for (i in movies[location]) {
 			if(booking_movie !="" && movies[location][i].name.toLowerCase().search(booking_movie)!= -1)
