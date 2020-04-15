@@ -734,13 +734,16 @@ app.post('/booking', (req, res) => {
 		console.log('customerData',req.body.queryResult.outputContexts[indexJ]);
 		customerData = req.body.queryResult.outputContexts[indexJ];
 		console.log("location",location);		
-		ticket_count = customerData.parameters["ticket_count"];
-	    payment_card = customerData.parameters["payment_card"]
+		payment_card = customerData.parameters["payment_card"]
 		card_number = customerData.parameters["card-number"].substring(customerData.parameters["card-number"].length-3);
 		phone_number = customerData.parameters["phone-number"];
 		given_name = customerData.parameters["given-name"];
-		if(confirm === "movie"){				  	
-			booking_time = customerData.parameters["booking_time.original"];
+        if(confirm === "movie"){
+			booking_time = datas.booking_time;
+			booking_date = datas.booking_date;
+		    ticket_count = datas.ticket_count;
+			booking_movie = datas.booking_movie.toLowerCase();
+			location = datas.location;			
 			console.log('booking_date',booking_date);
 			for (i in movies[location]) {
 				if(movies[location][i].name.toLowerCase().search(booking_movie)!= -1){
@@ -754,6 +757,7 @@ app.post('/booking', (req, res) => {
 			details = booking_time+", "+moviedetails['theatre'];
 		}
 		else {
+			ticket_count = customerData.parameters["ticket_count"];			
 			booking_date = event_date;console.log('booking_date',booking_date);
 			console.log('event_name',event_name);
 			for (i in events[location]) {
@@ -808,7 +812,7 @@ app.post('/booking', (req, res) => {
 							"elements": [
 								{
 									"title": moviedetails["name"][0].toUpperCase() + moviedetails["name"].slice(1),
-									"subtitle": booking_date +", "+ details,
+									"subtitle": bookDay +", "+ details,
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
 									"currency": "INR",
