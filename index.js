@@ -115,9 +115,10 @@ app.post('/booking', (req, res) => {
 			week = new Date(today);
 			week = week.setDate(week.getDate() +7);
 			week = new Date(week);
-			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) )
+			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) ){
 				console.log('in date');
 				datas['booking_date'] = booking_date;
+			}
 			else{
 				booking_date = " ";
 				return res.json({
