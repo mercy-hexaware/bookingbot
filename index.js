@@ -103,7 +103,37 @@ app.post('/booking', (req, res) => {
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
 		datas['booking_movie'] = booking_movie;
-		today = new Date(); dateCal(today);
+		today = new Date();
+		//start
+		let err = false;
+		let e = new Date();
+		let b = new Date();	
+	    let c = new Date();
+        let r = new Date();
+		let zero = parseInt('00', 8);
+		b = b.setHours(7,zero,0);
+		c = c.setHours(13,zero,0);
+		r = r.setHours(19,zero,0);
+		if(e.getTime() < b){
+		    err = true;
+			console.log('before 7 show all');    
+		}else if(b < e.getTime()  &&  e.getTime() < c) {
+			err = true;
+			console.log('before 1 ');
+		}else if(c < e.getTime()  &&  e.getTime() < d) {
+			err = true;
+			console.log('before 7 ');
+		}else if(r < e.getTime()) {
+			err = false;
+			console.log('after 7 ');
+		}
+		if(!err){
+		  today = today.setDate(today.getDate() +1);dateCal(today);
+		}else{
+		  dateCal(today);	
+		}		
+		//end	
+			
 		tomorrow = new Date(today);
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
 		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
