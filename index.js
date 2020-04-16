@@ -219,7 +219,7 @@ app.post('/booking', (req, res) => {
 				});
 			}	
 		}
-		if(booking_date != ""){
+		/*if(booking_date != ""){
 			//start
 				   let swtime =[];
 					let splitD = booking_date.split('+');		
@@ -316,8 +316,8 @@ app.post('/booking', (req, res) => {
 								
 						    });
 					}
-				//end
-		}
+				//end 
+		}*/
 	}
 	if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
 		booking_time = req.body.queryResult.parameters['booking_time'];
