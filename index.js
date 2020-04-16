@@ -45,19 +45,29 @@ app.post('/booking', (req, res) => {
 			}
 		console.log('x',x);
 		return res.json({
-			"fulfillmentText": "Now playing movies",			
-			"source": "facebook",
-			'payload': {		
-				"facebook": {
-					"attachment": {
-					"type": "template",
-					"payload": {
-						"template_type": "generic",
-						"elements": x
+			"fulfillmentText": [
+				{
+					'payload': {		
+						"facebook": {
+							"attachment": {
+							"type": "template",
+							"payload": {
+								"template_type": "generic",
+								"elements": x
+								}
+							}
 						}
 					}
-				}
-			}		  
+				},	
+				{
+				"text": {
+				  "text": [
+					"We are proving some offer for tickets based on you selection."
+				  ]
+				},
+				"platform": "FACEBOOK"
+			  }	
+		  ]
 		});
 	}
 	if(req.body.queryResult.intent.displayName === 'movies-see-other-movies'){
