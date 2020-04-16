@@ -34,16 +34,7 @@ const events = {
       "venue":"341, 2nd Avenue, G Block, Anna Nagar West, Anna Nagar, Chennai, India",
        "price":2500,
        "image":"https://ts-production.imgix.net/images/c4a49914-0951-426f-bfc9-cb531a7a5478.jpg?auto=compress,format&w=800&h=450",
-	   "date":["2020-05-05", "2020-05-10", "2020-05-20"]    
-    },
-    {
-     "event" : 0,
-      "name" :"IoT Product Development Camp",
-      "synopsis" :"As a 15-hour training offered by our organization, IoT is one of the most advanced and emerging technologies, bringing a close connection with all devices around us including aplliances like FAn, Light and all electronic devices, sometimes giving it to the chairs and tables too. Obvious Fun indeed.",
-      "venue":"341, 2nd Avenue, G Block, Anna Nagar West, Anna Nagar, Chennai, India",
-       "price":2500,
-       "image":"https://ts-production.imgix.net/images/c4a49914-0951-426f-bfc9-cb531a7a5478.jpg?auto=compress,format&w=800&h=450",
-	   "date":["2020-05-02", "2020-05-06", "2020-05-18"]
+	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]    
     }
   ],
   
@@ -55,7 +46,7 @@ const events = {
        "venue":"Bengaluru",
        "price":200,
        "image":"https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F90265189%2F279673266134%2F1%2Foriginal.20191229-012023?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C39%2C1348%2C674&s=93880aa170f09095650fecb2a95ea373",
-	   "date":["2020-05-08", "2020-05-13", "2020-05-22"]
+	   "date":["05-08-2020", "05-13-2020", "05-22--2020"]
     },
      {
        "event" : 0,
@@ -64,7 +55,7 @@ const events = {
        "venue":"Mother Tekhla Auditorium: Bengaluru",
        "price":499,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-stage-adda-presents-nishant-tanwar-live-2020-2-10-t-15-37-40.jpg",
-	   "date":["2020-05-05", "2020-05-10", "2020-05-20"]
+	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]
     }, 
     {
        "event" : 2,
@@ -82,7 +73,7 @@ const events = {
        "price":99,
        "synopsis":"Hippo Laugh Club presents a Friday evening StandUp Comedy Open mic loaded with lots of stories and jokes with 7 Comedians.",
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-friday-night-comedy-2020-3-5-t-16-54-50.jpg",
-	   "date":["2020-05-05", "2020-05-10", "2020-05-20"]
+	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]
     },
     {
        "event" : 1,
@@ -91,7 +82,7 @@ const events = {
        "price":4950,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-kids-learn-photography-2020-3-17-t-15-52-9.jpg",
        "synopsis":"Learn Photography",
-	   "date":["2020-05-10", "2020-05-19", "2020-05-28"]
+	   "date":["05-10-2020", "05-19-2020", "05-28-2020"]
     }
   ],
   "hyderabad":[
@@ -102,7 +93,7 @@ const events = {
        "price":499,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-melodious-moments-with-sunitha-2020-2-26-t-17-5-14.jpg",
        "synopsis":"We take you to a melodious journey with the queen of melody, Sunitha Upadrashta. This isn`t just a musical concert, it will be an experience altogether.",
-	   "date":["2020-05-04", "2020-05-13", "2020-05-23"]
+	   "date":["05-04-2020", "05-13-2020", "05-23-2020"]
     },
     {
        "event" : 1,
@@ -111,7 +102,7 @@ const events = {
        "price":20882,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-metamorphosis-residential-summer-camp-2020-3-9-t-11-4-47.jpg",
        "synopsis":"Education, Self Improvement, Yoga",
-	   "date":["2020-05-07", "2020-05-12", "2020-05-24"]
+	   "date":["05-07-2020", "05-12-2020", "05-24-2020"]
     },
     {
       "event" : 2,
@@ -120,7 +111,7 @@ const events = {
        "price":25000,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-metamorphosis-residential-summer-camp-2020-3-9-t-11-4-47.jpg",
        "synopsis":"Acting",
-	   "date":["2020-05-09", "2020-05-11", "2020-05-20"]
+	   "date":["05-09-2020", "05-11-2020", "05-20-2020"]
     },
     {
       "event" : 2,
@@ -129,7 +120,7 @@ const events = {
        "price":20882,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-ultimate-quarantine-week-ft-shibani-kashyap-2020-4-3-t-19-41-56.jpg",
        "synopsis":"Shibani Kashyap is a multi-talented popular playback and pop singer, composer and live performer whose voice received unique recognition starting with the signature tune of Air FM channel of All India Radio.",
-	   "date":["2020-05-05", "2020-05-10", "2020-05-20"]
+	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]
     },
    {
       "event" : 2,
@@ -138,7 +129,7 @@ const events = {
        "price":2100,
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-sunburn-arena-with-lauv-2019-11-15-t-21-26-16.jpg",
        "synopsis":"After climbing the global music charts to the very top, American singer, songwriter, multi-instrumentalist and producer LAUV is back with his latest album and tour ‘How I’m Feeling’ in India this June 2020!",
-       "date":["2020-05-06", "2020-05-12", "2020-05-26"]
+       "date":["05-06-2020", "05-12-2020", "05-26-2020"]
     }
     ]
 };

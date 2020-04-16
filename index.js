@@ -105,7 +105,7 @@ app.post('/booking', (req, res) => {
 		datas['booking_movie'] = booking_movie;
 		today = new Date();
 		//start
-		let err = false;
+		/*let err = false;
 		let e = new Date();
 		console.log('e',e.toString());
 		let h = addZero(e.getHours() + 6);
@@ -146,7 +146,7 @@ app.post('/booking', (req, res) => {
 		  dateCal(today);	
 		}		
 		//end	
-			
+	    */
 		tomorrow = new Date(today);
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
 		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
