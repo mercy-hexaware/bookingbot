@@ -103,7 +103,7 @@ app.post('/booking', (req, res) => {
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
 		datas['booking_movie'] = booking_movie;
-		today = new Date();		
+		today = new Date();dateCal(today)		
 		tomorrow = new Date(today);
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
 		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
