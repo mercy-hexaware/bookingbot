@@ -1091,7 +1091,7 @@ app.post('/booking', (req, res) => {
 							"buttons": [
 								{
 									"type": "postback",
-									"title": Cancel,
+									"title": "Cancel",
 									"payload": "cancellation"
 								}
 							]							
