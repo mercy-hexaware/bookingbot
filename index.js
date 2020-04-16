@@ -1172,7 +1172,7 @@ app.post('/booking', (req, res) => {
 		 ];
 		let payloadDate, paySplit, dbbIn;
 		console.log('booking date',req.body.originalDetectIntentRequest.payload.data['payload']);
-		payloadDate = req.body.originalDetectIntentRequest.payload.data['payload'];
+		payloadDate = req.body.queryResult.queryText;
 		paySplit = payloadDate.split('-');
 		dbbIn = paySplit[1];
 		dbb.splice(dbbIn,1);
