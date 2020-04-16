@@ -48,8 +48,7 @@ app.post('/booking', (req, res) => {
 			"fulfillmentText": "Now playing movies",			
 			"source": "facebook",
 			'payload': {		
-				"facebook": {
-					"text" : "your text",
+				"facebook": {					
 					"attachment": {
 					"type": "template",
 					"payload": {
