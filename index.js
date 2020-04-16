@@ -1079,15 +1079,36 @@ app.post('/booking', (req, res) => {
 	
 	else if(req.body.queryResult.intent.displayName === 'previous_booking_details'){
 	    let i ,bkdata=[];
-		console.log('db',db)
-		for (i in db) {
-				if(db[i].userName.toLowerCase().search(userName) != -1){
-				    console.log('db[i].movieName',db[i].movieName);
+		let dbb = [
+		  {
+			 "userName" : "mercy",
+			 "movieName": "asuraguru",
+			 "movieImage": "https://static.toiimg.com/photo/msid-74611011/74611011.jpg?68488",
+			"paymentAmount": 339.20,
+			 "mobileNo": 9876543211,
+			 "bookingDate": "2020-04-17",
+			"bookingTime": "01:00 PM"
+		   },
+		   {
+			 "userName": "mercy",
+			 "movieName": "little engineer summer ...",
+			 "movieImage": "https://ts-production.imgix.net/images/101026b0-fd9d-44ca-baa7-df78aafcb6a1.jpg?auto=compress,format&w=800&h=450",
+			 "paymentAmount": 8480.00,
+			 "mobileNo": 9876543211,
+			 "bookingDate": "2020-05-10",
+			 "bookingTime": ""
+			 }
+		 ];
+
+		console.log('dbb',dbb)
+		for (i in dbb) {
+				if(dbb[i].userName.toLowerCase().search(userName) != -1){
+				    console.log('dbb[i].movieName',dbb[i].movieName);
 					bkdata.unshift(					
 						{
-							"title": db[i].movieName,
-							"image_url": db[i].movieImage,
-							"subtitle": "Amount: "+ db[i].paymentAmount +"\n Booking Details: "+ db[i].bookingTime +" "+ db[i].bookingDate,
+							"title": dbb[i].movieName,
+							"image_url": dbb[i].movieImage,
+							"subtitle": "Amount: "+ dbb[i].paymentAmount +"\n Booking Details: "+ dbb[i].bookingTime +" "+ dbb[i].bookingDate,
 							"buttons": [
 								{
 									"type": "postback",

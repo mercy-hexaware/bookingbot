@@ -7,7 +7,7 @@ const events = {
       "venue": "Crystal Lawn. No 20, 1st street, Haddows Road, Chennai – 600006, Chennai, India",
        "price":4000,
        "image":"https://ts-production.imgix.net/images/101026b0-fd9d-44ca-baa7-df78aafcb6a1.jpg?auto=compress,format&w=800&h=450",
-	   "date":["2020-05-05", "2020-05-10", "2020-05-20"]
+	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]
 	   },
     {
       "event" : 1,
@@ -16,7 +16,7 @@ const events = {
       "venue": "Chennai, India (Exact venue to be decided)",
        "price":300,
        "image":"https://ts-production.imgix.net/images/60749334-5258-4008-ae7c-1f09f3b74804.jpg?auto=compress,format&w=800&h=450",
-	   "date":["2020-05-07", "2020-05-13", "2020-05-22"]
+	   "date":["05-07-2020", "05-13-2020", "05-22-2020"]
     },
      {
        "event" : 0,
@@ -25,7 +25,7 @@ const events = {
       "venue": "Anna University, Chennai, India",
        "price":600,
        "image":"https://media.newyorker.com/photos/5d9f7a50be0cf50008782e65/master/w_2560,h_1707,c_limit/Caesar-TwoHourMarathonAttempt.jpg",
-	   "date":["2020-05-01", "2020-05-10", "2020-05-20"]	   
+	   "date":["05-01-2020", "05-10-2020", "05-20-2020"]	   
     },
     {
       "event" : 0,
@@ -46,7 +46,7 @@ const events = {
        "venue":"Bengaluru",
        "price":200,
        "image":"https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F90265189%2F279673266134%2F1%2Foriginal.20191229-012023?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C39%2C1348%2C674&s=93880aa170f09095650fecb2a95ea373",
-	   "date":["05-08-2020", "05-13-2020", "05-22--2020"]
+	   "date":["05-08-2020", "05-13-2020", "05-22-2020"]
     },
      {
        "event" : 0,
@@ -64,7 +64,7 @@ const events = {
        "price":499,
        "synopsis":"Anubhav Singh Bassi",
        "image":"https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-bas-kar-bassi-feat-anubhav-singh-bassi-2019-8-6-t-19-18-56.jpg",
-	   "date":["2020-05-08", "2020-05-12", "2020-05-22"]
+	   "date":["05-08-2020", "05-12-2020", "05-22-2020"]
     },
     {
        "event" : 2,
