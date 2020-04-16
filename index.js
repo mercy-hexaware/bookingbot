@@ -195,7 +195,7 @@ app.post('/booking', (req, res) => {
 		if(booking_date == ""){
 			console.log('outputContexts',req.body.originalDetectIntentRequest.payload.data.message['text']);
 			booking_date = req.body.originalDetectIntentRequest.payload.data.message['text'];
-			datas['booking_date'] = booking_date;
+			datas['booking_date'] = booking_date;			
 		}else{			
 			bookingD = new Date(booking_date);			
 			today = new Date();
@@ -204,7 +204,98 @@ app.post('/booking', (req, res) => {
 			week = new Date(week);
 			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) ){
 				console.log('in date');
-				datas['booking_date'] = booking_date;				
+				datas['booking_date'] = booking_date;
+				//start
+				   let swtime =[];
+					let splitD = booking_date.split('+');		
+						let dTime = new Date(splitD[0]);  
+						let h = addZero(dTime.getHours());
+						let m = addZero(dTime.getMinutes());
+						let s = addZero(dTime.getSeconds());  
+						console.log(h + ":" + m + ":" + s);
+						
+						let currentD = new Date(booking_date);
+						let jj = new Date(booking_date);
+						let iu = new Date(booking_date); 
+						let cv = new Date(booking_date);
+						let bt = cv.setHours(h,m,s);
+						console.log(bt);
+						let zero = parseInt('00', 8);
+						let es = iu.setHours(19,zero,0); console.log(es);
+						let f  = jj.setHours(13,zero,0); console.log(f);
+						let ms  = currentD.setHours(7,zero,0); console.log(ms);
+						console.log("happy hour?")
+						if(bt < ms)
+						{
+						   console.log("before 7!");
+						    swtime.push(
+								{
+									"content_type": "text",
+									"title": "07:00 AM",
+									"payload": "Show booking time "							
+								},
+								{
+									"content_type": "text",
+									"title": "01:00 PM",
+									"payload": "Show booking time "							
+								},
+								{
+									"content_type": "text",
+									"title": "07:00 PM",
+									"payload": "Show booking time "							
+								}
+							);
+						}    
+						else if(ms < bt && bt < f)
+						{
+						   console.log("no, before 1");
+						   swtime.length =0;
+						    swtime.push(								
+								{
+									"content_type": "text",
+									"title": "01:00 PM",
+									"payload": "Show booking time "							
+								},
+								{
+									"content_type": "text",
+									"title": "07:00 PM",
+									"payload": "Show booking time "							
+								}
+							);
+						}
+						else if(f < bt  && bt < es)
+						{
+						   console.log("no, before 7");
+						   swtime.length =0;
+						    swtime.push(																
+								{
+									"content_type": "text",
+									"title": "07:00 PM",
+									"payload": "Show booking time "							
+								}
+							);						 
+						}else if(bt > es)
+						{
+						   console.log("no, after 7");
+						  
+						}
+					if(swtime != '' ){
+					
+						return res.json({
+								"fulfillmentText": "Movie date",			
+								"source": "facebook",
+								'payload': 
+									{
+									  "facebook": {
+										"text": "Please select your show time",
+										"quick_replies": swtime
+									}
+								}
+								
+						    });
+					}
+				//end
+				
 			}
 			else{
 				booking_date = " ";
