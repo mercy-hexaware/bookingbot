@@ -107,7 +107,7 @@ app.post('/booking', (req, res) => {
 		//start
 		let err = false;
 		let e = new Date();
-		console.log('e',new Date(new Date()));
+		console.log('e',e.toString());
 		let h = addZero(e.getHours());
 		let m = addZero(e.getMinutes());
 		let s = addZero(e.getSeconds());  
