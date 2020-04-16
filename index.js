@@ -1170,7 +1170,7 @@ app.post('/booking', (req, res) => {
 				"bookingTime": ""
 			 }
 		 ];
-		let payloadDate, paySplit, dbbIn,bokdata =[];
+		let payloadDate, paySplit, dbbIn,bokdata =[],i;
 		console.log('booking date',req.body.queryResult.queryText);
 		payloadDate = req.body.queryResult.queryText;
 		paySplit = payloadDate.split('-');
