@@ -1009,6 +1009,7 @@ app.post('/booking', (req, res) => {
 			subtotal = ticket_count * eval(moviedetails["price"]);
 			details = moviedetails['venue'];
 			booking = event_name;
+			booking_time = '';
 		}		
 		let tax = eval(subtotal) * eval(0.06);		
 		let taxvalue = fmtPrice(tax);
@@ -1082,11 +1083,18 @@ app.post('/booking', (req, res) => {
 		for (i in db) {
 				if(db[i].userName.toLowerCase().search(userName) != -1){
 				    console.log('db[i].movieName',db[i].movieName);
-					bkdata.push(					
+					bkdata.unshift(					
 						{
 							"title": db[i].movieName,
 							"image_url": db[i].movieImage,
-							"subtitle": "Amount: "+ db[i].paymentAmount +"\n Booking Date: "+ db[i].bookingDate +"\n Booking Time: "+ db[i].bookingTime,							
+							"subtitle": "Amount: "+ db[i].paymentAmount +"\n Booking Details: "+ db[i].bookingTime +" "+ db[i].bookingDate,
+							"buttons": [
+								{
+									"type": "postback",
+									"title": Cancel,
+									"payload": "cancellation"
+								}
+							]							
 						}					
 					);					
 				}
