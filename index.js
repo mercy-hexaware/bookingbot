@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, eventdatas= { 'event_name' :'','event_date' : '','ticket_count' :'','location' : ''},booking;
+let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, eventdatas= { 'event_name' :'','event_date' : '','ticket_count' :'','location' : ''},booking, dbbIn;
 app.post('/booking', (req, res) => {
 	console.log('webhook');
     console.log(req.body);
@@ -1128,12 +1128,15 @@ app.post('/booking', (req, res) => {
 				});
 		}
 	}
-	else if(req.body.queryResult.intent.displayName === "cancellation"){		
-		let payloadDate, paySplit, dbbIn,bokdata =[],i;
+	else if(req.body.queryResult.intent.displayName === "cancellation"){
 		console.log('booking date',req.body.queryResult.queryText);
-		payloadDate = req.body.queryResult.queryText;
-		paySplit = payloadDate.split('-');
+		let queryData,paySplit;		
+		queryData = req.body.queryResult.queryText;
+		paySplit = queryData.split('-');
 		dbbIn = paySplit[1];
+    }
+	else if(req.body.queryResult.intent.displayName === "cancellation-yes"){
+		let bokdata =[],i;
 		db.splice(dbbIn,1);
 		console.log('db',db);		
 		for (i in db) {
