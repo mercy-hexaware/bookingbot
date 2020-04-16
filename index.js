@@ -1134,7 +1134,7 @@ app.post('/booking', (req, res) => {
 				}
 			}
 		console.log('bkdata',bkdata);
-		if(bkdata.lenght != 0){
+		if(bkdata.length != 0){
 			return res.json({
 				"fulfillmentText": "Now playing movies",			
 				"source": "facebook",
