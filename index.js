@@ -1134,21 +1134,33 @@ app.post('/booking', (req, res) => {
 				}
 			}
 		console.log('bkdata',bkdata);
-		return res.json({
-			"fulfillmentText": "Now playing movies",			
-			"source": "facebook",
-			'payload': {		
-				"facebook": {
-					"attachment": {
-					"type": "template",
-					"payload": {
-						"template_type": "generic",
-						"elements": bkdata
+		if(bkdata.lenght != 0){
+			return res.json({
+				"fulfillmentText": "Now playing movies",			
+				"source": "facebook",
+				'payload': {		
+					"facebook": {
+						"attachment": {
+						"type": "template",
+						"payload": {
+							"template_type": "generic",
+							"elements": bkdata
+							}
 						}
 					}
-				}
-			}		  
-		});
+				}		  
+			});
+		}else{
+			return res.json({
+					"fulfillmentText": "Movie date",			
+					"source": "facebook",
+					'payload': {
+						"facebook": {
+							"text": "Sorry, Your booking details not available"
+						}
+					}
+				});
+		}
 	}
 	
 	function timeCal (booking_time, booking_date){ 
