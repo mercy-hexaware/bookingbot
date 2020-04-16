@@ -223,10 +223,12 @@ app.post('/booking', (req, res) => {
 			//start
 				   let swtime =[];
 					let splitD = booking_date.split('+');		
-						let dTime = new Date(splitD[0]);  
-						let h = addZero(dTime.getHours());
-						let m = addZero(dTime.getMinutes());
-						let s = addZero(dTime.getSeconds());  
+						let dTime = new Date(splitD[0]); 
+						console.log('splitD',splitD[0]);
+						console.log('dTime',dTime);
+						let h = dTime.getHours();
+						let m = dTime.getMinutes();
+						let s = dTime.getSeconds();  
 						console.log(h + ":" + m + ":" + s);
 						function addZero(z) {
 							if (z < 10) {
