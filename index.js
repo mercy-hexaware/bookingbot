@@ -228,7 +228,12 @@ app.post('/booking', (req, res) => {
 						let m = addZero(dTime.getMinutes());
 						let s = addZero(dTime.getSeconds());  
 						console.log(h + ":" + m + ":" + s);
-						
+						function addZero(z) {
+							if (z < 10) {
+								z = "0" + z;
+							}
+							return z;
+						}	
 						let currentD = new Date(booking_date);
 						let jj = new Date(booking_date);
 						let iu = new Date(booking_date); 
