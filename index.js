@@ -1149,7 +1149,9 @@ app.post('/booking', (req, res) => {
 				});
 		}
 	}
-	
+	else if(req.body.queryResult.intent.displayName === "cancellation"){
+		console.log('booking date',req.body.originalDetectIntentRequest.payload.data);
+	}
 	function timeCal (booking_time, booking_date){ 
 	let error;
 	console.log('in timeCal');
