@@ -400,7 +400,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": moviedetails.name,
 									"image_url": moviedetails.image,
-									"subtitle": booking_time+", "+bookDay +"/n "+ moviedetails.theatre +" Total payment amount include tax Rs."+total_cost,
+									"subtitle": booking_time+"\n"+bookDay +"\n"+ moviedetails.theatre +" Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
@@ -549,7 +549,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": eventdetails.name,
 									"image_url": eventdetails.image,
-									"subtitle": "No.of ticket: "+ ticket_count +", "+ event_date+"/n Total payment amount include tax Rs."+total_cost,
+									"subtitle": "No.of ticket: "+ ticket_count +"\n"+ event_date+"\n Total payment amount include tax Rs."+total_cost,
 									"buttons": [
 										{
 											"type": "postback",
