@@ -107,6 +107,18 @@ app.post('/booking', (req, res) => {
 		//start
 		let err = false;
 		let e = new Date();
+		let h = addZero(e.getHours());
+		let m = addZero(e.getMinutes());
+		let s = addZero(e.getSeconds());  
+		console.log(h + ":" + m + ":" + s);
+		function addZero(z) {
+			if (z < 10) {
+				z = "0" + z;
+			}
+			return z;
+		}							
+		e = e.setHours(h,m,s); 
+		
 		let b = new Date();	
 	    let c = new Date();
         let r = new Date();
@@ -114,16 +126,16 @@ app.post('/booking', (req, res) => {
 		b = b.setHours(7,zero,0);
 		c = c.setHours(13,zero,0);
 		r = r.setHours(19,zero,0);
-		if(e.getTime() < b){
+		if(e < b){
 		    err = true;
 			console.log('before 7 show all');    
-		}else if(b < e.getTime()  &&  e.getTime() < c) {
+		}else if(b < e &&  e < c) {
 			err = true;
 			console.log('before 1 ');
-		}else if(c < e.getTime()  &&  e.getTime() < d) {
+		}else if(c < e  &&  e < d) {
 			err = true;
 			console.log('before 7 ');
-		}else if(r < e.getTime()) {
+		}else if(r < e) {
 			err = false;
 			console.log('after 7 ');
 		}
