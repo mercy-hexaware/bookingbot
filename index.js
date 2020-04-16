@@ -205,7 +205,22 @@ app.post('/booking', (req, res) => {
 			if ((today.getTime() <= bookingD.getTime()) && (bookingD.getTime() <= week.getTime()) ){
 				console.log('in date');
 				datas['booking_date'] = booking_date;
-				//start
+			}
+			else{
+				booking_date = " ";
+				return res.json({
+					"fulfillmentText": "Movie date",			
+					"source": "facebook",
+					'payload': {
+						"facebook": {
+							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
+						}
+					}
+				});
+			}	
+		}
+		if(booking_date != ""){
+			//start
 				   let swtime =[];
 					let splitD = booking_date.split('+');		
 						let dTime = new Date(splitD[0]);  
@@ -295,20 +310,6 @@ app.post('/booking', (req, res) => {
 						    });
 					}
 				//end
-				
-			}
-			else{
-				booking_date = " ";
-				return res.json({
-					"fulfillmentText": "Movie date",			
-					"source": "facebook",
-					'payload': {
-						"facebook": {
-							"text": "Sorry, Your booking date must be within coming 7days. Please enter your booking date"
-						}
-					}
-				});
-			}	
 		}
 	}
 	if(req.body.queryResult.intent.displayName === 'booking-movie-ticket-time'){
