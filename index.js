@@ -103,50 +103,7 @@ app.post('/booking', (req, res) => {
 		console.log('data',req.body.originalDetectIntentRequest.payload.data.postback['title']);
         booking_movie = req.body.originalDetectIntentRequest.payload.data.postback['title'].toLowerCase();
 		datas['booking_movie'] = booking_movie;
-		today = new Date();
-		//start
-		/*let err = false;
-		let e = new Date();
-		console.log('e',e.toString());
-		let h = addZero(e.getHours() + 6);
-		let m = addZero(e.getMinutes(e.setMinutes( e.getMinutes() + 30 )));
-		let s = addZero(e.getSeconds());  
-		console.log(h + ":" + m + ":" + s);
-		function addZero(z) {
-			if (z < 10) {
-				z = "0" + z;
-			}
-			return z;
-		}							
-		e = e.setHours(h,m,s); 
-		
-		let b = new Date();	
-	    let c = new Date();
-        let r = new Date();
-		let zero = parseInt('00', 8);
-		b = b.setHours(7,zero,0);
-		c = c.setHours(13,zero,0);
-		r = r.setHours(19,zero,0);
-		if(e < b){
-		    err = true;
-			console.log('before 7 show all');    
-		}else if(b < e &&  e < c) {
-			err = true;
-			console.log('before 1 ');
-		}else if(c < e  &&  e < d) {
-			err = true;
-			console.log('before 7 ');
-		}else if(r < e) {
-			err = false;
-			console.log('after 7 ');
-		}
-		if(!err){
-		  today = today.setDate(today.getDate() +1);dateCal(today);
-		}else{
-		  dateCal(today);	
-		}		
-		//end	
-	    */
+		today = new Date();		
 		tomorrow = new Date(today);
 		tomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(tomw);
 		dayAfttomw = tomorrow.setDate(tomorrow.getDate() +1);dateCal(dayAfttomw);
@@ -159,6 +116,7 @@ app.post('/booking', (req, res) => {
             month = month < 10 ? "0"+month : month ;
 			dateArr.push(month + "-" + day + "-" + year);
 		}
+		console.log('dateArr',dateArr);
 		return res.json({
 			"fulfillmentText": "Movie date",			
 			"source": "facebook",
