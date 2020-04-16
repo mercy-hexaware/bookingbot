@@ -57,7 +57,8 @@ app.post('/booking', (req, res) => {
 								}
 							}
 						}
-					}
+					},
+					"platform": "FACEBOOK"
 				},	
 				{
 				"text": {
