@@ -549,7 +549,7 @@ app.post('/booking', (req, res) => {
 								{
 									"title": eventdetails.name,
 									"image_url": eventdetails.image,
-									"subtitle": "No.of ticket: "+ ticket_count +"\n"+ event_date+"\n Total payment amount include tax Rs."+total_cost,
+									"subtitle": "No.of ticket: "+ ticket_count +"\n"+ event_date+"\n Total payment amount include tax Rs."+total_cost+"\n"+'Venue:'+ eventdetails.venue,
 									"buttons": [
 										{
 											"type": "postback",
@@ -1034,7 +1034,7 @@ app.post('/booking', (req, res) => {
 			console.log('moviedetails',movies[location][indexNo]);
 			moviedetails = movies[location][indexNo];		
 			subtotal = ticket_count * eval(moviedetails["price"]);
-			details = booking_time+", "+moviedetails['theatre'];
+			details = booking_time+"\n"+moviedetails['theatre'];
 		}
 		else {
 			ticket_count = customerData.parameters["ticket_count"];			
@@ -1104,7 +1104,7 @@ app.post('/booking', (req, res) => {
 							"elements": [
 								{
 									"title": moviedetails["name"][0].toUpperCase() + moviedetails["name"].slice(1),
-									"subtitle": bookDay +", "+ details,
+									"subtitle": bookDay +"\n"+ details,
 									"quantity": ticket_count,
 									"price": moviedetails["price"],
 									"currency": "INR",
