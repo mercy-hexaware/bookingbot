@@ -1170,13 +1170,61 @@ app.post('/booking', (req, res) => {
 				"bookingTime": ""
 			 }
 		 ];
-		let payloadDate, paySplit, dbbIn;
-		console.log('booking date',req.body.originalDetectIntentRequest.payload.data['payload']);
+		let payloadDate, paySplit, dbbIn,bokdata =[];
+		console.log('booking date',req.body.queryResult.queryText);
 		payloadDate = req.body.queryResult.queryText;
 		paySplit = payloadDate.split('-');
 		dbbIn = paySplit[1];
 		dbb.splice(dbbIn,1);
 		console.log('dbb',dbb);
+		
+		for (i in dbb) {
+				if(dbb[i].userName.toLowerCase().search(userName) != -1){
+				    console.log('dbb[i].movieName',dbb[i].movieName);
+					bokdata.push(					
+						{
+							"title": dbb[i].movieName,
+							"image_url": dbb[i].movieImage,
+							"subtitle": "Amount: "+ dbb[i].paymentAmount +"\n Booking Details: "+ dbb[i].bookingTime +" "+ dbb[i].bookingDate,
+							"buttons": [
+								{
+									"type": "postback",
+									"title": "Cancel",
+									"payload": "cancellation-"+i
+								}
+							]							
+						}					
+					);					
+				}
+			}
+		console.log('bokdata',bokdata);
+		if(bokdata.length != 0){
+			return res.json({
+				"fulfillmentText": "Now playing movies",			
+				"source": "facebook",
+				'payload': {		
+					"facebook": {
+						"attachment": {
+						"type": "template",
+						"payload": {
+							"template_type": "generic",
+							"elements": bokdata
+							}
+						}
+					}
+				}		  
+			});
+		}else{
+			return res.json({
+					"fulfillmentText": "Movie date",			
+					"source": "facebook",
+					'payload': {
+						"facebook": {
+							"text": "Sorry, Your booking details not available"
+						}
+					}
+				});
+		}
 	}
 	function timeCal (booking_time, booking_date){ 
 	let error;
