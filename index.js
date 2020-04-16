@@ -49,6 +49,7 @@ app.post('/booking', (req, res) => {
 			"source": "facebook",
 			'payload': {		
 				"facebook": {
+					"text" : "your text",
 					"attachment": {
 					"type": "template",
 					"payload": {
