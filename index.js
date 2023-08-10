@@ -10,6 +10,13 @@ const db = require('./cusData');
 //For LogRocket deployment
 import LogRocket from 'logrocket';
 LogRocket.init('mpg5mz/bookingbot');
+LogRocket.identify('THE_USER_ID_IN_YOUR_APP', {
+	name: 'mercy-hexaware',
+	email: '51769.hexaware@ggmail.com',
+  
+	// Add your own custom user variables here, ie:
+	subscriptionType: 'pro'
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
