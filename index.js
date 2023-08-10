@@ -7,6 +7,10 @@ const movies = require('./movie');
 const events = require('./event');
 const app = express();
 const db = require('./cusData');
+//For LogRocket deployment
+import LogRocket from 'logrocket';
+LogRocket.init('mpg5mz/bookingbot');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const server = app.listen(process.env.PORT || 5000, () => {
