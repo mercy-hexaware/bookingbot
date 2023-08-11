@@ -7,20 +7,11 @@ const movies = require('./movie');
 const events = require('./event');
 const app = express();
 const db = require('./cusData');
-//For LogRocket deployment
-import LogRocket from 'logrocket';
-LogRocket.init('mpg5mz/bookingbot');
-LogRocket.identify('THE_USER_ID_IN_YOUR_APP', {
-	name: 'mercy-hexaware',
-	email: '51769.hexaware@ggmail.com',
-  
-	// Add your own custom user variables here, ie:
-	subscriptionType: 'pro'
-  });
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const server = app.listen(process.env.PORT || 5000, () => {
+const server = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 let location, booking_movie, ticket_count, booking_date, booking_time, event_name, event_count, event_date, event_no, confirm, datas= { 'booking_time' :'','booking_date' : '','ticket_count' :'','booking_movie':'','location' : ''},  payment= false, userName, eventdatas= { 'event_name' :'','event_date' : '','ticket_count' :'','location' : ''},booking, dbbIn;
