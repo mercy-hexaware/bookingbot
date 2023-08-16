@@ -410,7 +410,7 @@ app.post('/booking', (req, res) => {
 			}
 		console.log('x',x);
 		return res.json({
-			"fulfillmentText": "Now playing Events",			
+			"fulfillmentText": "Now playing Events....",			
 			"source": "facebook",
 			'payload': {		
 				"facebook": {
