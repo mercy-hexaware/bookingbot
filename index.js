@@ -425,22 +425,22 @@ app.post('/booking', (req, res) => {
 		// 	}		  
 		// });
 		return res.json({
-			"fulfillmentMessages": [
-			  {
-				"card": {
-				  "title": "card title",
-				  "subtitle": "card text",
-				  "imageUri": "https://example.com/images/example.png",
-				  "buttons": [
-					{
-					  "text": "button text",
-					  "postback": "https://example.com/path/for/end-user/to/follow"
+			"fulfillmentText": [			
+			{
+				'payload': {		
+					"facebook": {
+						"attachment": {
+						"type": "template",
+						"payload": {
+							"template_type": "generic",
+							"elements": x
+							}
+						}
 					}
-				  ]
 				}
-			  }
-			]
-		  });
+			}]			  
+		});
+		
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket' || req.body.queryResult.intent.displayName === 'direct_event-booking-details - date'){
 		let i,payLd;
