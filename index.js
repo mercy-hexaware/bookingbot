@@ -409,21 +409,38 @@ app.post('/booking', (req, res) => {
 				);
 			}
 		console.log('x',x);
+		// return res.json({
+		// 	"fulfillmentText": "Now playing Events....",			
+		// 	"source": "facebook",
+		// 	'payload': {		
+		// 		"facebook": {
+		// 			"attachment": {
+		// 			"type": "template",
+		// 			"payload": {
+		// 				"template_type": "generic",
+		// 				"elements": x
+		// 				}
+		// 			}
+		// 		}
+		// 	}		  
+		// });
 		return res.json({
-			"fulfillmentText": "Now playing Events....",			
-			"source": "message",
-			'payload': {		
-				"message": {
-					"attachment": {
-					"type": "template",
-					"payload": {
-						"template_type": "generic",
-						"elements": x
-						}
+			"fulfillmentMessages": [
+			  {
+				"card": {
+				  "title": "card title",
+				  "subtitle": "card text",
+				  "imageUri": "https://example.com/images/example.png",
+				  "buttons": [
+					{
+					  "text": "button text",
+					  "postback": "https://example.com/path/for/end-user/to/follow"
 					}
+				  ]
 				}
-			}		  
-		});
+			  }
+			]
+		  });
 	}
 	else if(req.body.queryResult.intent.displayName === 'events - booking-ticket' || req.body.queryResult.intent.displayName === 'direct_event-booking-details - date'){
 		let i,payLd;
