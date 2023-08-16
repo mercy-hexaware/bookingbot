@@ -46,73 +46,21 @@ app.post('/booking', (req, res) => {
 				
 			}
 		console.log('x',x);
-		// return res.json({
-		// 	"fulfillmentText": "Now playing movies",			
-		// 	"source": "facebook",
-		// 	'payload': {		
-		// 		"facebook": {					
-		// 			"attachment": {
-		// 			"type": "template",
-		// 			"payload": {
-		// 				"template_type": "generic",
-		// 				"elements": x
-		// 				}
-		// 			}
-		// 		}
-		// 	}		  
-		// });
-		return res.json({			
-				"fulfillmentText": "Now playing movies",			
-				"source": "facebook",
-				"payload":{		
-				"facebook": {
-				  "attachment": {
+		return res.json({
+			"fulfillmentText": "Now playing movies",			
+			"source": "facebook",
+			'payload': {		
+				"facebook": {					
+					"attachment": {
+					"type": "template",
 					"payload": {
-					  "template_type": "generic",
-					  "elements": [
-						{
-						  "title": "Individual Ticket",
-						  "buttons": [
-							{
-							  "payload": "single ticket",
-							  "type": "postback",
-							  "title": "Single Ticket"
-							}
-						  ],
-						  "subtitle": "It is over single ticket only.",
-						  "image_url": "https://cdn0.iconfinder.com/data/icons/info-graphics-1-3/64/single_person_information_analytics-512.png"
-						},
-						 {
-						  "title": "Individual Ticket",
-						  "buttons": [
-							{
-							  "payload": "single ticket",
-							  "type": "postback",
-							  "title": "Single Ticket"
-							}
-						  ],
-						  "subtitle": "It is over single ticket only.",
-						  "image_url": "https://cdn0.iconfinder.com/data/icons/info-graphics-1-3/64/single_person_information_analytics-512.png"
-						},          
-						{
-						  "title": "Gypsy",
-						  "image_url": "https://indiaglitz-media.s3.amazonaws.com/tamil/home/gypsy-movie-review-05032020m.jpg",
-						  "subtitle": " 'Actor: Jiiva\n' +' Rating: 3/5 \n' +' Language: Tamil\n' + ' Price: 160\n' +  'Theatre: Sathyam Cinemas'",
-						  "buttons": [ 
-							{
-							  "payload": "booking movie ticket",
-							  "type": "postback",
-							  "title": "Gypsy"
-							}
-						  ]
+						"template_type": "generic",
+						"elements": x
 						}
-					  ]
-					},
-					"type": "template"
-				  }
+					}
 				}
-			  }
-		})
+			}		  
+		});
 	}
 	if(req.body.queryResult.intent.displayName === 'movies-see-other-movies'){
 		console.log('booking_movie',datas['booking_movie']);
