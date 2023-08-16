@@ -411,9 +411,9 @@ app.post('/booking', (req, res) => {
 		console.log('x',x);
 		return res.json({
 			"fulfillmentText": "Now playing Events....",			
-			"source": "facebook",
+			"source": "message",
 			'payload': {		
-				"facebook": {
+				"message": {
 					"attachment": {
 					"type": "template",
 					"payload": {
