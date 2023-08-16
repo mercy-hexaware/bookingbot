@@ -47,9 +47,7 @@ app.post('/booking', (req, res) => {
 			}
 		console.log('x',x);
 		return res.json({
-			"fulfillmentText": "Now playing movies",			
-			"source": "facebook",
-			'payload': {		
+					
 				"facebook": {					
 					"attachment": {
 					"type": "template",
@@ -59,7 +57,7 @@ app.post('/booking', (req, res) => {
 						}
 					}
 				}
-			}		  
+					  
 		});
 	}
 	if(req.body.queryResult.intent.displayName === 'movies-see-other-movies'){
