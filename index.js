@@ -425,20 +425,18 @@ app.post('/booking', (req, res) => {
 		// 	}		  
 		// });
 		return res.json({
-			"fulfillmentText": [			
-			{
-				'payload': {		
-					"facebook": {
-						"attachment": {
-						"type": "template",
-						"payload": {
-							"template_type": "generic",
-							"elements": x
-							}
+			"fulfillmentText": "Now playing Events....",		
+			'payload': {		
+				"facebook": {
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": x
 						}
 					}
 				}
-			}]			  
+			}					  
 		});
 		
 	}
