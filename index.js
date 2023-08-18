@@ -397,7 +397,9 @@ app.post('/booking', (req, res) => {
 					{
 						"title": events[location][i].name,
 						"image_url": events[location][i].image,
-						"subtitle": info +" \n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
+						//"subtitle": info +" \n Price: "+ events[location][i].price +"\n Venue: "+ events[location][i].venue +" \n synopsis: "+ events[location][i].synopsis,
+						
+						"subtitle" : "Price",
 						"buttons": [
 							{
 								"type": "postback",
