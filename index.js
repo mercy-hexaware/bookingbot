@@ -427,7 +427,10 @@ app.post('/booking', (req, res) => {
 		// 	}		  
 		// });
 		return res.json({
-			"facebook": {
+			"fulfillmentText": "Now playing Events....",			
+		 	"source": "facebook",
+		 	'payload': {		
+				"facebook": {
 				"attachment": {
 					"payload": {
 						"template_type": "generic",
@@ -448,6 +451,7 @@ app.post('/booking', (req, res) => {
 					}
 				}
 			}
+		}	
 		});
 		
 	}
