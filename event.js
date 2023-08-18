@@ -6,8 +6,8 @@ const events = {
       "synopsis" :"Robotics & Coding,  3D Designing & 3D Printing/Doodling, Electronics & IoT, Machines & Mechanics",
       "venue": "Crystal Lawn. No 20, 1st street, Haddows Road, Chennai – 600006, Chennai, India",
        "price":4000,
-       "image":"https://ts-production.imgix.net/images/101026b0-fd9d-44ca-baa7-df78aafcb6a1.jpg?auto=compress,format&w=800&h=450",
-	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]
+       "image":"https://ts-production.imgix.net/images/101026b0-fd9d-44ca-baa7-df78aafcb6a1.jpg",
+	   "date":["08-20-2023", "09-10-2023", "09-20-2023"]
 	   },
     {
       "event" : 1,
@@ -15,8 +15,8 @@ const events = {
       "synopsis" :" a simple and heartwarming way to bring joy to as many children as possible. These vouchers can be purchased by anyone, to be gifted to children in need. ",
       "venue": "Chennai, India (Exact venue to be decided)",
        "price":300,
-       "image":"https://ts-production.imgix.net/images/60749334-5258-4008-ae7c-1f09f3b74804.jpg?auto=compress,format&w=800&h=450",
-	   "date":["05-07-2020", "05-13-2020", "05-22-2020"]
+       "image":"https://ts-production.imgix.net/images/60749334-5258-4008-ae7c-1f09f3b74804.jpg",
+       "date":["08-21-2023", "09-11-2023", "09-21-2023"]
     },
      {
        "event" : 0,
@@ -25,7 +25,7 @@ const events = {
       "venue": "Anna University, Chennai, India",
        "price":600,
        "image":"https://media.newyorker.com/photos/5d9f7a50be0cf50008782e65/master/w_2560,h_1707,c_limit/Caesar-TwoHourMarathonAttempt.jpg",
-	   "date":["05-01-2020", "05-10-2020", "05-20-2020"]	   
+       "date":["08-24-2023", "09-15-2023", "09-25-2023"]	   
     },
     {
       "event" : 0,
@@ -33,8 +33,8 @@ const events = {
       "synopsis" :"As a 15-hour training offered by our organization, IoT is one of the most advanced and emerging technologies, bringing a close connection with all devices around us including aplliances like FAn, Light and all electronic devices, sometimes giving it to the chairs and tables too. Obvious Fun indeed.",
       "venue":"341, 2nd Avenue, G Block, Anna Nagar West, Anna Nagar, Chennai, India",
        "price":2500,
-       "image":"https://ts-production.imgix.net/images/c4a49914-0951-426f-bfc9-cb531a7a5478.jpg?auto=compress,format&w=800&h=450",
-	   "date":["05-05-2020", "05-10-2020", "05-20-2020"]    
+       "image":"https://ts-production.imgix.net/images/c4a49914-0951-426f-bfc9-cb531a7a5478.jpg",
+       "date":["08-23-2023", "09-16-2023", "09-20-2023"]    
     }
   ],
   
@@ -45,7 +45,7 @@ const events = {
        "synopsis":"Strong, Capable and Consistent Team",
        "venue":"Bengaluru",
        "price":200,
-       "image":"https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F90265189%2F279673266134%2F1%2Foriginal.20191229-012023?w=800&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C39%2C1348%2C674&s=93880aa170f09095650fecb2a95ea373",
+       "image":"https://ts-production.imgix.net/images/c4a49914-0951-426f-bfc9-cb531a7a5478.jpg",
 	   "date":["05-08-2020", "05-13-2020", "05-22-2020"]
     },
      {
