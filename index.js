@@ -431,27 +431,28 @@ app.post('/booking', (req, res) => {
 		 	"source": "facebook",
 		 	'payload': {		
 				"facebook": {
-				"attachment": {
-					"payload": {
-						"template_type": "generic",
-						"elements": [
-							{
-								"title": "Individual Ticket",
-								"subtitle": "It is over single ticket only.",
-								"image_url": "https://cdn0.iconfinder.com/data/icons/info-graphics-1-3/64/single_person_information_analytics-512.png",
-								"buttons": [
-									{
-										"type": "postback",
-										"payload": "single ticket",
-										"title": "Single Ticket"
-									}
-								]
-							}
-						]
+					"attachment": {
+						"payload": {
+							"template_type": "generic",
+							"elements": [
+								{
+									"title": "Individual Ticket",
+									"subtitle": "It is over single ticket only.",
+									"image_url": "https://cdn0.iconfinder.com/data/icons/info-graphics-1-3/64/single_person_information_analytics-512.png",
+									"buttons": [
+										{
+											"type": "postback",
+											"payload": "single ticket",
+											"title": "Single Ticket"
+										}
+									]
+								}
+							]
+						},
+						"type": "template"	
 					}
 				}
 			}
-		}	
 		});
 		
 	}
